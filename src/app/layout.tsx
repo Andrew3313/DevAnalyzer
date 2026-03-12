@@ -1,36 +1,24 @@
-import type { Metadata } from "next";
-import { Geist, Geist_Mono, Inter } from "next/font/google";
-import "./globals.css";
-import { cn } from "@/lib/utils";
+import { Inter } from 'next/font/google'
 
-const inter = Inter({subsets:['latin'],variable:'--font-sans'});
+import './styles/globals.css'
+import { cn } from '@/shared/lib/utils'
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
+import type { Metadata } from 'next'
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+const inter = Inter({ subsets: ['latin', 'cyrillic'], variable: '--font-sans' })
 
 export const metadata: Metadata = {
-  title: "DevAnalyzer",
-};
+	title: 'DevAnalyzer'
+}
 
 export default function RootLayout({
-  children,
+	children
 }: Readonly<{
-  children: React.ReactNode;
+	children: React.ReactNode
 }>) {
-  return (
-    <html lang="en" className={cn("font-sans", inter.variable)}>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
-  );
+	return (
+		<html lang="en" className={cn('font-sans', inter.variable)}>
+			<body className="antialiased">{children}</body>
+		</html>
+	)
 }
