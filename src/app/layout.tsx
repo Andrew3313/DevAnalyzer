@@ -1,7 +1,7 @@
 import { Inter } from 'next/font/google'
 
 import './styles/globals.css'
-import { cn } from '@/shared/lib/utils'
+import { cn } from '@/shared/lib'
 
 import type { Metadata } from 'next'
 
@@ -17,8 +17,14 @@ export default function RootLayout({
 	children: React.ReactNode
 }>) {
 	return (
-		<html lang="en" className={cn('font-sans', inter.variable)}>
-			<body className="antialiased">{children}</body>
+		<html
+			lang="ru"
+			suppressHydrationWarning
+			className={cn('font-sans', inter.variable)}
+		>
+			<body className="flex min-h-screen flex-col antialiased">
+				{children}
+			</body>
 		</html>
 	)
 }
