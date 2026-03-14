@@ -1,6 +1,6 @@
 import { Inter } from 'next/font/google'
 
-import './styles/globals.css'
+import './styles/index.css'
 import { cn } from '@/shared/lib'
 
 import { MainProvider } from './providers'

@@ -1,9 +1,9 @@
-import { Button } from '@/shared/components'
+import { ToggleTheme } from '@/features/toggle-theme/ui'
 
 export default function Home() {
 	return (
 		<div className="flex justify-center">
-			<Button>Button</Button>
+			<ToggleTheme />
 		</div>
 	)
 }
