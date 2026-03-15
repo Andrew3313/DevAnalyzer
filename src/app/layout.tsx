@@ -1,7 +1,7 @@
 import { Inter } from 'next/font/google'
 
 import './styles/index.css'
-import { cn } from '@/shared/lib'
+import { cn } from '@/shared/helpers'
 
 import { MainProvider } from './providers'
 

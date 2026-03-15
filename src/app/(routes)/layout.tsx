@@ -1,4 +1,4 @@
-import { Container } from '@/shared/components'
+import { Container } from '@/shared/ui'
 
 interface IMainLayoutProps {
 	children: React.ReactNode
