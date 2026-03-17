@@ -1,4 +1,2 @@
-export * from './icons'
-export * from './kit'
-
 export * from './container'
+export * from './wrapper-card'
