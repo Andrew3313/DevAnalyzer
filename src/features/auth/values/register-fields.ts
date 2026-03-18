@@ -22,12 +22,6 @@ export const REGISTER_FIELDS: Readonly<TFormFields<TRegisterSchema>> = [
 		type: 'text'
 	},
 	{
-		name: 'email',
-		label: 'Email',
-		placeholder: 'your@email.com',
-		type: 'email'
-	},
-	{
 		name: 'company',
 		label: 'Компания',
 		placeholder: 'Tech Solutions',
@@ -40,6 +34,12 @@ export const REGISTER_FIELDS: Readonly<TFormFields<TRegisterSchema>> = [
 		placeholder: 'HR Manager',
 		type: 'text',
 		showIf: (role) => role === UserRole.HR
+	},
+	{
+		name: 'email',
+		label: 'Email',
+		placeholder: 'your@email.com',
+		type: 'email'
 	},
 	{
 		name: 'password',

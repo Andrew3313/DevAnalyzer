@@ -35,51 +35,46 @@ export function LoginForm() {
 	}
 
 	return (
-		<div className="flex min-h-[80vh] items-center justify-center p-6">
-			<WrapperCard
-				title="С возвращением!"
-				description="Войдите в свой аккаунт"
-				footerLinkLabel="Нет аккаунта? Зарегистрироваться ->"
-				footerLinkHref={Route.Register}
-			>
-				<form
-					onSubmit={form.handleSubmit(onSubmit)}
-					className="flex flex-col"
-				>
-					<FieldGroup>
-						{LOGIN_FIELDS.map((formField) => (
-							<Controller
-								key={formField.name}
-								name={formField.name}
-								control={form.control}
-								render={({ field, fieldState }) => (
-									<Field data-invalid={fieldState.invalid}>
-										<FieldLabel htmlFor={field.name}>
-											{formField.label}
-										</FieldLabel>
-										<Input
-											{...field}
-											id={field.name}
-											aria-invalid={fieldState.invalid}
-											type={formField.type}
-											placeholder={formField.placeholder}
+		<WrapperCard
+			title="С возвращением!"
+			description="Войдите в свой аккаунт"
+			footerLinkLabel="Нет аккаунта? Зарегистрироваться ->"
+			footerLinkHref={Route.Register}
+		>
+			<form onSubmit={form.handleSubmit(onSubmit)}>
+				<FieldGroup>
+					{LOGIN_FIELDS.map((formField) => (
+						<Controller
+							key={formField.name}
+							name={formField.name}
+							control={form.control}
+							render={({ field, fieldState }) => (
+								<Field data-invalid={fieldState.invalid}>
+									<FieldLabel htmlFor={field.name}>
+										{formField.label}
+									</FieldLabel>
+									<Input
+										{...field}
+										id={field.name}
+										aria-invalid={fieldState.invalid}
+										type={formField.type}
+										placeholder={formField.placeholder}
+									/>
+									{fieldState.invalid && (
+										<FieldError
+											errors={[fieldState.error]}
 										/>
-										{fieldState.invalid && (
-											<FieldError
-												errors={[fieldState.error]}
-											/>
-										)}
-									</Field>
-								)}
-							/>
-						))}
+									)}
+								</Field>
+							)}
+						/>
+					))}
 
-						<Field>
-							<Button type="submit">Войти</Button>
-						</Field>
-					</FieldGroup>
-				</form>
-			</WrapperCard>
-		</div>
+					<Field>
+						<Button type="submit">Войти</Button>
+					</Field>
+				</FieldGroup>
+			</form>
+		</WrapperCard>
 	)
 }

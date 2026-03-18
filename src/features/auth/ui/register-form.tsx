@@ -56,42 +56,65 @@ export function RegisterForm() {
 	)
 
 	return (
-		<div className="flex min-h-[80vh] items-center justify-center p-6">
-			<WrapperCard
-				title="Создать аккаунт"
-				footerLinkLabel="Уже есть аккаунт? Войти ->"
-				footerLinkHref={Route.Login}
-				className="max-w-xl"
-			>
-				<form
-					onSubmit={form.handleSubmit(onSubmit)}
-					className="flex flex-col gap-4"
-				>
-					<FieldGroup className="grid grid-cols-1 sm:grid-cols-2">
+		<WrapperCard
+			title="Создать аккаунт"
+			description="Зарегистрируйтесь как рекрутер и получите доступ к сравнению кандидатов, избранному и истории отчётов"
+			footerLinkLabel="Уже есть аккаунт? Войти ->"
+			footerLinkHref={Route.Login}
+			className="max-w-xl"
+		>
+			<form onSubmit={form.handleSubmit(onSubmit)}>
+				<FieldGroup className="grid grid-cols-1 sm:grid-cols-2">
+					<Controller
+						name="role"
+						control={form.control}
+						render={({ field, fieldState }) => (
+							<Field className="col-span-1 sm:col-span-2">
+								<FieldLabel htmlFor={field.name}>
+									Тип аккаунта
+								</FieldLabel>
+
+								<Select
+									value={field.value ?? ''}
+									onValueChange={field.onChange}
+								>
+									<SelectTrigger id={field.name}>
+										<SelectValue placeholder="Выберите роль" />
+									</SelectTrigger>
+
+									<SelectContent position="popper">
+										<SelectItem value={UserRole.USER}>
+											Пользователь
+										</SelectItem>
+										<SelectItem value={UserRole.HR}>
+											Рекрутер
+										</SelectItem>
+									</SelectContent>
+								</Select>
+								{fieldState.invalid && (
+									<FieldError errors={[fieldState.error]} />
+								)}
+							</Field>
+						)}
+					/>
+
+					{visibleFields.map((formField) => (
 						<Controller
-							name="role"
+							key={formField.name}
+							name={formField.name}
 							control={form.control}
 							render={({ field, fieldState }) => (
-								<Field className="col-span-1 sm:col-span-2">
-									<FieldLabel>Тип аккаунта</FieldLabel>
-
-									<Select
-										value={field.value ?? ''}
-										onValueChange={field.onChange}
-									>
-										<SelectTrigger>
-											<SelectValue placeholder="Выберите роль" />
-										</SelectTrigger>
-
-										<SelectContent>
-											<SelectItem value={UserRole.USER}>
-												Пользователь
-											</SelectItem>
-											<SelectItem value={UserRole.HR}>
-												Рекрутер
-											</SelectItem>
-										</SelectContent>
-									</Select>
+								<Field data-invalid={fieldState.invalid}>
+									<FieldLabel htmlFor={field.name}>
+										{formField.label}
+									</FieldLabel>
+									<Input
+										{...field}
+										id={field.name}
+										aria-invalid={fieldState.invalid}
+										type={formField.type}
+										placeholder={formField.placeholder}
+									/>
 									{fieldState.invalid && (
 										<FieldError
 											errors={[fieldState.error]}
@@ -100,42 +123,15 @@ export function RegisterForm() {
 								</Field>
 							)}
 						/>
+					))}
 
-						{visibleFields.map((formField) => (
-							<Controller
-								key={formField.name}
-								name={formField.name}
-								control={form.control}
-								render={({ field, fieldState }) => (
-									<Field data-invalid={fieldState.invalid}>
-										<FieldLabel htmlFor={field.name}>
-											{formField.label}
-										</FieldLabel>
-										<Input
-											{...field}
-											id={field.name}
-											aria-invalid={fieldState.invalid}
-											type={formField.type}
-											placeholder={formField.placeholder}
-										/>
-										{fieldState.invalid && (
-											<FieldError
-												errors={[fieldState.error]}
-											/>
-										)}
-									</Field>
-								)}
-							/>
-						))}
-
-						<Field className="col-span-1 sm:col-span-2">
-							<Button type="submit" className="w-full">
-								Зарегистрироваться
-							</Button>
-						</Field>
-					</FieldGroup>
-				</form>
-			</WrapperCard>
-		</div>
+					<Field className="col-span-1 sm:col-span-2">
+						<Button type="submit" className="w-full">
+							Зарегистрироваться
+						</Button>
+					</Field>
+				</FieldGroup>
+			</form>
+		</WrapperCard>
 	)
 }
