@@ -15,15 +15,18 @@ import {
 import { Route } from '@/shared/values'
 
 import { LoginSchema, type TLoginSchema } from '../model'
+import { LOGIN_FIELDS } from '../values'
+
+const INITIAL_FORM_STATE: TLoginSchema = {
+	email: '',
+	password: ''
+}
 
 export function LoginForm() {
 	const form = useForm<TLoginSchema>({
 		resolver: zodResolver(LoginSchema),
-		mode: 'onBlur',
-		defaultValues: {
-			email: '',
-			password: ''
-		}
+		mode: 'onTouched',
+		defaultValues: INITIAL_FORM_STATE
 	})
 
 	const onSubmit = (values: TLoginSchema) => {
@@ -32,7 +35,7 @@ export function LoginForm() {
 	}
 
 	return (
-		<div className="flex min-h-[80vh] items-center justify-center px-2">
+		<div className="flex min-h-[80vh] items-center justify-center p-6">
 			<WrapperCard
 				title="С возвращением!"
 				description="Войдите в свой аккаунт"
@@ -41,56 +44,35 @@ export function LoginForm() {
 			>
 				<form
 					onSubmit={form.handleSubmit(onSubmit)}
-					className="flex flex-col gap-4"
+					className="flex flex-col"
 				>
 					<FieldGroup>
-						<Controller
-							name="email"
-							control={form.control}
-							render={({ field, fieldState }) => (
-								<Field data-invalid={fieldState.invalid}>
-									<FieldLabel htmlFor={field.name}>
-										Email
-									</FieldLabel>
-									<Input
-										{...field}
-										id={field.name}
-										aria-invalid={fieldState.invalid}
-										type="email"
-										placeholder="ivan@example.com"
-									/>
-									{fieldState.invalid && (
-										<FieldError
-											errors={[fieldState.error]}
+						{LOGIN_FIELDS.map((formField) => (
+							<Controller
+								key={formField.name}
+								name={formField.name}
+								control={form.control}
+								render={({ field, fieldState }) => (
+									<Field data-invalid={fieldState.invalid}>
+										<FieldLabel htmlFor={field.name}>
+											{formField.label}
+										</FieldLabel>
+										<Input
+											{...field}
+											id={field.name}
+											aria-invalid={fieldState.invalid}
+											type={formField.type}
+											placeholder={formField.placeholder}
 										/>
-									)}
-								</Field>
-							)}
-						/>
-
-						<Controller
-							name="password"
-							control={form.control}
-							render={({ field, fieldState }) => (
-								<Field data-invalid={fieldState.invalid}>
-									<FieldLabel htmlFor={field.name}>
-										Пароль
-									</FieldLabel>
-									<Input
-										{...field}
-										id={field.name}
-										aria-invalid={fieldState.invalid}
-										placeholder="********"
-										type="password"
-									/>
-									{fieldState.invalid && (
-										<FieldError
-											errors={[fieldState.error]}
-										/>
-									)}
-								</Field>
-							)}
-						/>
+										{fieldState.invalid && (
+											<FieldError
+												errors={[fieldState.error]}
+											/>
+										)}
+									</Field>
+								)}
+							/>
+						))}
 
 						<Field>
 							<Button type="submit">Войти</Button>

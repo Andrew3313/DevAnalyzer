@@ -3,3 +3,5 @@ export const LATIN_ALPHANUMERIC_SYMBOLS =
 
 export const HAS_UPPERCASE = /[A-Z]/
 export const HAS_DIGIT = /[0-9]/
+
+export const NO_WHITESPACE = /^[^\s]+$/

@@ -1,6 +1,8 @@
 import Link from 'next/link'
 import { type PropsWithChildren } from 'react'
 
+import { cn } from '@/shared/helpers'
+
 import {
 	Card,
 	CardContent,
@@ -16,6 +18,7 @@ interface IWrapperCardProps {
 	description?: string
 	footerLinkLabel?: string
 	footerLinkHref?: string
+	className?: string
 }
 
 export function WrapperCard({
@@ -23,10 +26,11 @@ export function WrapperCard({
 	title,
 	description,
 	footerLinkLabel,
-	footerLinkHref
+	footerLinkHref,
+	className
 }: PropsWithChildren<IWrapperCardProps>) {
 	return (
-		<Card className="w-full max-w-100 shadow-md">
+		<Card className={cn('w-full max-w-100 shadow-md', className)}>
 			<CardHeader className="space-y-2 text-center">
 				<CardTitle className="text-xl font-semibold sm:text-2xl">
 					{title}
