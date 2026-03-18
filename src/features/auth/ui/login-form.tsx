@@ -1,7 +1,7 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Controller, useForm } from 'react-hook-form'
+import { Controller, useForm, type UseFormReturn } from 'react-hook-form'
 
 import { WrapperCard } from '@/shared/ui'
 import {
@@ -22,7 +22,13 @@ const INITIAL_FORM_STATE: TLoginSchema = {
 	password: ''
 }
 
-export function LoginForm() {
+interface ILoginFormProps {
+	afterFields?:
+		| React.ReactNode
+		| ((form: UseFormReturn<TLoginSchema>) => React.ReactNode)
+}
+
+export function LoginForm({ afterFields }: ILoginFormProps) {
 	const form = useForm<TLoginSchema>({
 		resolver: zodResolver(LoginSchema),
 		mode: 'onTouched',
@@ -69,6 +75,10 @@ export function LoginForm() {
 							)}
 						/>
 					))}
+
+					{typeof afterFields === 'function'
+						? afterFields(form)
+						: afterFields}
 
 					<Field>
 						<Button type="submit">Войти</Button>
