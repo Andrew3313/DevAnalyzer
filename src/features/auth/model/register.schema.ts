@@ -11,20 +11,22 @@ export const RegisterSchema = z
 		firstName: z
 			.string()
 			.min(1, 'Введите имя')
-			.regex(NO_WHITESPACE, 'Должно быть одним словом')
-			.max(30, 'Максимум 30 символов'),
+			.max(30, 'Максимум 30 символов')
+			.regex(NO_WHITESPACE, 'Должно быть одним словом'),
 
 		lastName: z
 			.string()
 			.min(1, 'Введите фамилию')
-			.regex(NO_WHITESPACE, 'Должна быть одним словом')
-			.max(50, 'Максимум 50 символов'),
+			.max(50, 'Максимум 50 символов')
+			.regex(NO_WHITESPACE, 'Должна быть одним словом'),
 
 		patronymic: z
 			.string()
-			.min(1, 'Введите отчество')
-			.regex(NO_WHITESPACE, 'Должно быть одним словом')
-			.max(50, 'Максимум 50 символов'),
+			.max(50, 'Максимум 50 символов')
+			.refine(
+				(value) => !value || NO_WHITESPACE.test(value),
+				'Должно быть одним словом'
+			),
 
 		company: z.string().max(100, 'Максимум 100 символов').optional(),
 		position: z.string().max(100, 'Максимум 100 символов').optional(),

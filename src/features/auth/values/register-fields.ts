@@ -17,7 +17,7 @@ export const REGISTER_FIELDS: Readonly<TFormFields<TRegisterSchema>> = [
 	},
 	{
 		name: 'patronymic',
-		label: 'Отчество',
+		label: 'Отчество (при наличии)',
 		placeholder: 'Иванович',
 		type: 'text'
 	},
