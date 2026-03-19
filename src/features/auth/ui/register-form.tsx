@@ -2,6 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Controller, useForm, useWatch } from 'react-hook-form'
+import { toast } from 'sonner'
 
 import { UserRole } from '@/entities/user/values'
 import { WrapperCard } from '@/shared/ui'
@@ -46,8 +47,10 @@ export function RegisterForm() {
 		name: 'role'
 	})
 
-	const onSubmit = (values: TRegisterSchema) => {
+	const handleSubmit = (values: TRegisterSchema) => {
 		console.log(values)
+		toast.success('Вы успешно зарегистрировались!')
+
 		form.reset()
 	}
 
@@ -63,7 +66,7 @@ export function RegisterForm() {
 			footerLinkHref={Route.Login}
 			className="max-w-xl"
 		>
-			<form onSubmit={form.handleSubmit(onSubmit)}>
+			<form onSubmit={form.handleSubmit(handleSubmit)}>
 				<FieldGroup className="grid grid-cols-1 sm:grid-cols-2">
 					<Controller
 						name="role"

@@ -2,6 +2,7 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Controller, useForm, type UseFormReturn } from 'react-hook-form'
+import { toast } from 'sonner'
 
 import { WrapperCard } from '@/shared/ui'
 import {
@@ -35,8 +36,10 @@ export function LoginForm({ afterFields }: ILoginFormProps) {
 		defaultValues: INITIAL_FORM_STATE
 	})
 
-	const onSubmit = (values: TLoginSchema) => {
+	const handleSubmit = (values: TLoginSchema) => {
 		console.log(values)
+		toast.success('Вы успешно вошли в аккаунт!')
+
 		form.reset()
 	}
 
@@ -47,7 +50,7 @@ export function LoginForm({ afterFields }: ILoginFormProps) {
 			footerLinkLabel="Нет аккаунта? Зарегистрироваться ->"
 			footerLinkHref={Route.Register}
 		>
-			<form onSubmit={form.handleSubmit(onSubmit)}>
+			<form onSubmit={form.handleSubmit(handleSubmit)}>
 				<FieldGroup>
 					{LOGIN_FIELDS.map((formField) => (
 						<Controller
