@@ -1,10 +1,10 @@
+import { decodeJwt } from 'jose'
 import { NextRequest, NextResponse } from 'next/server'
 
 import { defineProxy } from '@/shared/proxy'
 import { getCookieOptions, StorageKey } from '@/shared/values'
 
 import { authService } from '../api'
-import { isTokenValid } from '../helpers'
 
 export const AuthProxy = defineProxy({
 	global: true,
@@ -49,3 +49,15 @@ export const AuthProxy = defineProxy({
 		return res
 	}
 })
+
+function isTokenValid(token: string, clockSkewSeconds = 30): boolean {
+	try {
+		const payload = decodeJwt(token) as { exp?: number }
+
+		if (!payload.exp) return false
+
+		return payload.exp * 1000 > Date.now() - clockSkewSeconds * 1000
+	} catch {
+		return false
+	}
+}

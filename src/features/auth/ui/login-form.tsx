@@ -2,7 +2,6 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Controller, useForm, type UseFormReturn } from 'react-hook-form'
-import { toast } from 'sonner'
 
 import { WrapperCard } from '@/shared/ui'
 import {
@@ -15,6 +14,7 @@ import {
 } from '@/shared/ui/kit'
 import { Route } from '@/shared/values'
 
+import { useLogin } from '../hooks'
 import { LoginSchema, type TLoginSchema } from '../model'
 import { LOGIN_FIELDS } from '../values'
 
@@ -36,10 +36,10 @@ export function LoginForm({ afterFields }: ILoginFormProps) {
 		defaultValues: INITIAL_FORM_STATE
 	})
 
-	const handleSubmit = (values: TLoginSchema) => {
-		console.log(values)
-		toast.success('Вы успешно вошли в аккаунт!')
+	const { login, isLoadingLogin } = useLogin()
 
+	const handleSubmit = (values: TLoginSchema) => {
+		login(values)
 		form.reset()
 	}
 
@@ -68,6 +68,7 @@ export function LoginForm({ afterFields }: ILoginFormProps) {
 										aria-invalid={fieldState.invalid}
 										type={formField.type}
 										placeholder={formField.placeholder}
+										disabled={isLoadingLogin}
 									/>
 									{fieldState.invalid && (
 										<FieldError
@@ -84,7 +85,9 @@ export function LoginForm({ afterFields }: ILoginFormProps) {
 						: afterFields}
 
 					<Field>
-						<Button type="submit">Войти</Button>
+						<Button type="submit" disabled={isLoadingLogin}>
+							{isLoadingLogin ? 'Вход в аккаунт...' : 'Войти'}
+						</Button>
 					</Field>
 				</FieldGroup>
 			</form>
