@@ -29,7 +29,7 @@ class AuthService {
 		})
 	}
 
-	async login(values: TLoginSchema): Promise<void> {
+	async login(values: TLoginSchema) {
 		return apiClient.request('/auth/login', {
 			method: 'POST',
 			headers: {
@@ -39,16 +39,17 @@ class AuthService {
 		})
 	}
 
-	async logout(): Promise<void> {
+	async logout() {
 		return apiClient.request('/auth/logout', {
 			method: 'POST'
 		})
 	}
 
-	async refresh(cookie: string): Promise<void> {
+	async refresh(cookie: string): Promise<Response> {
 		return apiClient.request('/auth/refresh', {
 			method: 'POST',
-			headers: cookie ? { Cookie: cookie } : undefined
+			headers: cookie ? { Cookie: cookie } : undefined,
+			rawResponse: true
 		})
 	}
 }

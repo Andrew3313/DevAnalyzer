@@ -1,5 +1,9 @@
+import { getEnv } from '@/shared/helpers'
+
 import { FetchClient } from './fetch-client'
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL!
-
-export const apiClient = new FetchClient(API_URL, {}, 'include')
+export const apiClient = new FetchClient(
+	getEnv('NEXT_PUBLIC_API_URL', 'http://localhost:8081/api'),
+	{},
+	'include'
+)

@@ -8,4 +8,5 @@ export interface TRequestOptions<
 > extends RequestInit {
 	queryParams?: TQueryParams
 	nextOptions?: TNextOptions
+	rawResponse?: boolean
 }
