@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 import { AuthProxy } from '@/features/auth/proxy'
-import { type IProxy, withProxy } from '@/shared/proxy'
+import { withProxy, type IProxy } from '@/shared/proxy'
 import { Route, ROUTES_LIST } from '@/shared/values'
 
 const PROXIES: IProxy[] = [AuthProxy]

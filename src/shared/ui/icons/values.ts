@@ -1,4 +1,4 @@
-import { Keys } from '@/shared/helpers'
+import { type Keys } from '@/shared/helpers'
 
 export const ICON_SIZES = {
 	xs: 'w-5 h-5',

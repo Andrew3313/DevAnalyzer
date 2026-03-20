@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-import type { IProxy } from './types'
+import { type IProxy } from './types'
 
 export async function withProxy(
 	request: NextRequest,

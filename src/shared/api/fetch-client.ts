@@ -1,4 +1,4 @@
-import type { TRequestOptions } from './types'
+import { type TRequestOptions } from './types'
 
 export class FetchClient {
 	constructor(

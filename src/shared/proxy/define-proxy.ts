@@ -1,4 +1,4 @@
-import type { IProxy } from './types'
+import { type IProxy } from './types'
 
 export function defineProxy({
 	global,
