@@ -2,7 +2,6 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Controller, useForm, useWatch } from 'react-hook-form'
-import { toast } from 'sonner'
 
 import { UserRole } from '@/entities/user/values'
 import { WrapperCard } from '@/shared/ui'
@@ -21,6 +20,7 @@ import {
 } from '@/shared/ui/kit'
 import { Route } from '@/shared/values'
 
+import { useRegister } from '../hooks'
 import { RegisterSchema, type TRegisterSchema } from '../model'
 import { REGISTER_FIELDS } from '../values'
 
@@ -47,10 +47,10 @@ export function RegisterForm() {
 		name: 'role'
 	})
 
-	const handleSubmit = (values: TRegisterSchema) => {
-		console.log(values)
-		toast.success('Вы успешно зарегистрировались!')
+	const { register, isLoadingRegister } = useRegister()
 
+	const handleSubmit = (values: TRegisterSchema) => {
+		register(values)
 		form.reset()
 	}
 
@@ -80,6 +80,7 @@ export function RegisterForm() {
 								<Select
 									value={field.value ?? ''}
 									onValueChange={field.onChange}
+									disabled={isLoadingRegister}
 								>
 									<SelectTrigger id={field.name}>
 										<SelectValue placeholder="Выберите роль" />
@@ -117,6 +118,7 @@ export function RegisterForm() {
 										aria-invalid={fieldState.invalid}
 										type={formField.type}
 										placeholder={formField.placeholder}
+										disabled={isLoadingRegister}
 									/>
 									{fieldState.invalid && (
 										<FieldError
@@ -129,8 +131,14 @@ export function RegisterForm() {
 					))}
 
 					<Field className="col-span-1 sm:col-span-2">
-						<Button type="submit" className="w-full">
-							Зарегистрироваться
+						<Button
+							type="submit"
+							className="w-full"
+							disabled={isLoadingRegister}
+						>
+							{isLoadingRegister
+								? 'Регистрация...'
+								: 'Зарегистрироваться'}
 						</Button>
 					</Field>
 				</FieldGroup>
