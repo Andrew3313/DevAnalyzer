@@ -2,35 +2,30 @@ import { decodeJwt } from 'jose'
 import { NextRequest, NextResponse } from 'next/server'
 
 import { defineProxy } from '@/shared/proxy'
-import { getCookieOptions, Route, StorageKey } from '@/shared/values'
+import { getCookieOptions, StorageKey } from '@/shared/values'
 
 import { authService } from '../api'
 
-const PUBLIC_AUTH_PAGES: Route[] = [Route.Login, Route.Register]
+const CLEAR_COOKIE_OPTIONS = getCookieOptions({ maxAge: 0 })
 
-export const AuthProxy = defineProxy({
+export const AuthRefresh = defineProxy({
 	global: true,
 	handler: async (req: NextRequest, res: NextResponse) => {
-		const pathname = req.nextUrl.pathname
-		const isAuthPage = PUBLIC_AUTH_PAGES.includes(pathname as Route)
-
 		const accessToken = req.cookies.get(StorageKey.AccessToken)?.value
 		const refreshToken = req.cookies.get(StorageKey.RefreshToken)?.value
 
-		const isAccessTokenValid = accessToken
-			? isTokenValid(accessToken)
-			: false
+		if (!accessToken || !refreshToken) {
+			res.cookies.set(StorageKey.AccessToken, '', CLEAR_COOKIE_OPTIONS)
+			res.cookies.set(StorageKey.RefreshToken, '', CLEAR_COOKIE_OPTIONS)
 
-		if (isAccessTokenValid && isAuthPage) {
-			return NextResponse.redirect(new URL(Route.Home, req.url))
+			return res
 		}
 
-		if (!accessToken || !refreshToken || isAccessTokenValid) {
+		if (isTokenValid(accessToken)) {
 			return res
 		}
 
 		const cookieHeader = req.headers.get('cookie') || ''
-
 		try {
 			const refreshResponse = await authService.refresh(cookieHeader)
 			if (!refreshResponse.ok) {
@@ -43,23 +38,11 @@ export const AuthProxy = defineProxy({
 			setCookieHeaders.forEach((cookie) => {
 				res.headers.append('Set-Cookie', cookie)
 			})
-
-			if (isAuthPage) {
-				return NextResponse.redirect(new URL(Route.Home, req.url))
-			}
 		} catch (error) {
 			console.error('Refresh failed', error)
 
-			res.cookies.set(
-				StorageKey.AccessToken,
-				'',
-				getCookieOptions({ maxAge: 0 })
-			)
-			res.cookies.set(
-				StorageKey.RefreshToken,
-				'',
-				getCookieOptions({ maxAge: 0 })
-			)
+			res.cookies.set(StorageKey.AccessToken, '', CLEAR_COOKIE_OPTIONS)
+			res.cookies.set(StorageKey.RefreshToken, '', CLEAR_COOKIE_OPTIONS)
 		}
 
 		return res

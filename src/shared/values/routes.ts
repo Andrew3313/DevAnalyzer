@@ -10,7 +10,7 @@ export enum Route {
 	Report = '/report/:username',
 	Login = '/login',
 	Register = '/register',
-	RefreshPassword = '/refresh-password'
+	RefreshPassword = '/reset-password'
 }
 
 export type TRouteParamValue = string | number
@@ -20,5 +20,3 @@ export type TRouteDynamicParams = EnsureParamObject<
 	},
 	TRouteParamValue
 >
-
-export const ROUTES_LIST = Object.values(Route)

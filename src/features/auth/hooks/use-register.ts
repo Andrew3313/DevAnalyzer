@@ -2,7 +2,6 @@ import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
-import { type IUser } from '@/entities/user/model'
 import { Route } from '@/shared/values'
 
 import { authService } from '../api'
@@ -14,11 +13,9 @@ export function useRegister() {
 	const { mutate: register, isPending: isLoadingRegister } = useMutation({
 		mutationKey: ['register'],
 		mutationFn: (values: TRegisterSchema) => authService.register(values),
-		onSuccess: (data: IUser) => {
-			console.log(data)
-
-			router.push(Route.Home)
-			toast.success('Вы успешно зарегистрировались!')
+		onSuccess: () => {
+			router.push(Route.Login)
+			toast.success('Вы успешно зарегистрировались! Войдите в аккаунт.')
 		},
 		onError: (error) => {
 			console.error('Register error:', error)

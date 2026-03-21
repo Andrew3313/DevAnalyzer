@@ -2,7 +2,7 @@ import type { ResponseCookie } from 'next/dist/compiled/@edge-runtime/cookies'
 
 const COOKIE_DOMAIN = process.env.NEXT_PUBLIC_COOKIE_DOMAIN
 
-export const baseCookieOptions: Partial<ResponseCookie> = {
+export const BASE_COOKIE_OPTIONS: Partial<ResponseCookie> = {
 	httpOnly: true,
 	path: '/',
 	secure: true,
@@ -13,6 +13,6 @@ export const baseCookieOptions: Partial<ResponseCookie> = {
 export const getCookieOptions = (
 	extra?: Partial<ResponseCookie>
 ): Partial<ResponseCookie> => ({
-	...baseCookieOptions,
+	...BASE_COOKIE_OPTIONS,
 	...extra
 })

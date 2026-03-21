@@ -8,5 +8,3 @@ export interface IFormField<Schema> {
 	type: string
 	showIf?: (role: UserRole) => boolean
 }
-
-export type TFormFields<Schema> = IFormField<Schema>[]

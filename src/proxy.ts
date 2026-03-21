@@ -1,20 +1,17 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-import { AuthProxy } from '@/features/auth/proxy'
+import { AuthRefresh, AuthRedirectGuard } from '@/features/auth/proxy'
 import { withProxy, type IProxy } from '@/shared/proxy'
-import { Route, ROUTES_LIST } from '@/shared/values'
 
-const PROXIES: IProxy[] = [AuthProxy]
+const PROXIES: IProxy[] = [AuthRefresh, AuthRedirectGuard]
 
 export async function proxy(req: NextRequest) {
 	const response = NextResponse.next()
-
-	const isPage = ROUTES_LIST.includes(req.nextUrl.pathname as Route)
-	const nextResponse = isPage ? await withProxy(req, response, PROXIES) : null
-
-	return nextResponse || response
+	return withProxy(req, response, PROXIES)
 }
 
 export const config = {
-	matcher: ['/:path*']
+	matcher: [
+		'/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)'
+	]
 }
