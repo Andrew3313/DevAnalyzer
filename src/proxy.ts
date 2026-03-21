@@ -6,13 +6,11 @@ import { Route, ROUTES_LIST } from '@/shared/values'
 
 const PROXIES: IProxy[] = [AuthProxy]
 
-export async function proxy(request: NextRequest) {
+export async function proxy(req: NextRequest) {
 	const response = NextResponse.next()
 
-	const isPage = ROUTES_LIST.includes(request.nextUrl.pathname as Route)
-	const nextResponse = isPage
-		? await withProxy(request, response, PROXIES)
-		: null
+	const isPage = ROUTES_LIST.includes(req.nextUrl.pathname as Route)
+	const nextResponse = isPage ? await withProxy(req, response, PROXIES) : null
 
 	return nextResponse || response
 }

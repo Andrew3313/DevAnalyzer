@@ -2,17 +2,30 @@ import { decodeJwt } from 'jose'
 import { NextRequest, NextResponse } from 'next/server'
 
 import { defineProxy } from '@/shared/proxy'
-import { getCookieOptions, StorageKey } from '@/shared/values'
+import { getCookieOptions, Route, StorageKey } from '@/shared/values'
 
 import { authService } from '../api'
+
+const PUBLIC_AUTH_PAGES: Route[] = [Route.Login, Route.Register]
 
 export const AuthProxy = defineProxy({
 	global: true,
 	handler: async (req: NextRequest, res: NextResponse) => {
+		const pathname = req.nextUrl.pathname
+		const isAuthPage = PUBLIC_AUTH_PAGES.includes(pathname as Route)
+
 		const accessToken = req.cookies.get(StorageKey.AccessToken)?.value
 		const refreshToken = req.cookies.get(StorageKey.RefreshToken)?.value
 
-		if (!accessToken || !refreshToken || isTokenValid(accessToken)) {
+		const isAccessTokenValid = accessToken
+			? isTokenValid(accessToken)
+			: false
+
+		if (isAccessTokenValid && isAuthPage) {
+			return NextResponse.redirect(new URL(Route.Home, req.url))
+		}
+
+		if (!accessToken || !refreshToken || isAccessTokenValid) {
 			return res
 		}
 
@@ -20,7 +33,6 @@ export const AuthProxy = defineProxy({
 
 		try {
 			const refreshResponse = await authService.refresh(cookieHeader)
-
 			if (!refreshResponse.ok) {
 				throw new Error(
 					`Refresh failed with status ${refreshResponse.status}`
@@ -31,6 +43,10 @@ export const AuthProxy = defineProxy({
 			setCookieHeaders.forEach((cookie) => {
 				res.headers.append('Set-Cookie', cookie)
 			})
+
+			if (isAuthPage) {
+				return NextResponse.redirect(new URL(Route.Home, req.url))
+			}
 		} catch (error) {
 			console.error('Refresh failed', error)
 

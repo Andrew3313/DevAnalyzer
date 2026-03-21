@@ -19,7 +19,7 @@ export function useLogin() {
 		},
 		onError: (error) => {
 			console.error('Login error:', error)
-			toast.error(`Error: ${error.message}`)
+			toast.error(`Произошла ошибка. Пожалуйста, попробуйте ещё раз.`)
 		}
 	})
 

@@ -22,7 +22,7 @@ export function useRegister() {
 		},
 		onError: (error) => {
 			console.error('Register error:', error)
-			toast.error(`Error: ${error.message}`)
+			toast.error(`Произошла ошибка. Пожалуйста, попробуйте ещё раз.`)
 		}
 	})
 
