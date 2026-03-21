@@ -20,7 +20,7 @@ const toRegisterApiRequest = (data: TRegisterSchema): TRegisterApiRequest => ({
 class AuthService {
 	async register(values: TRegisterSchema): Promise<IUser> {
 		const body = toRegisterApiRequest(values)
-		return apiClient.request('/users/register', {
+		return apiClient.request('/api/users/register', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
