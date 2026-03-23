@@ -2,7 +2,7 @@ import z from 'zod'
 
 import { passwordValidator } from '@/shared/helpers'
 
-export const refreshPasswordSchema = z
+export const resetPasswordSchema = z
 	.object({
 		newPassword: passwordValidator(),
 		confirmNewPassword: z.string().min(1, 'Обязательное поле')
@@ -12,4 +12,4 @@ export const refreshPasswordSchema = z
 		path: ['confirmNewPassword']
 	})
 
-export type TRefreshPasswordSchema = z.infer<typeof refreshPasswordSchema>
+export type TResetPasswordSchema = z.infer<typeof resetPasswordSchema>

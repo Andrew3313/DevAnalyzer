@@ -10,7 +10,7 @@ export enum Route {
 	Report = '/report/:username',
 	Login = '/login',
 	Register = '/register',
-	RefreshPassword = '/reset-password'
+	ResetPassword = '/reset-password'
 }
 
 export type TRouteParamValue = string | number

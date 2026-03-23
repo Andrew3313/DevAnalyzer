@@ -1,6 +1,8 @@
-import type { TLoginSchema, IFormField } from '../model'
+import { type IBaseFormField } from '@/shared/model'
 
-export const LOGIN_FIELDS: ReadonlyArray<IFormField<TLoginSchema>> = [
+import { type TLoginSchema } from '../model'
+
+export const LOGIN_FIELDS: ReadonlyArray<IBaseFormField<TLoginSchema>> = [
 	{
 		name: 'email',
 		label: 'Email',

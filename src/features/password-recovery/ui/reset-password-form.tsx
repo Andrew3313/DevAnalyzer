@@ -1,7 +1,7 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Controller, useForm, type UseFormReturn } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 
 import { WrapperCard } from '@/shared/ui'
 import {
@@ -14,49 +14,43 @@ import {
 } from '@/shared/ui/kit'
 import { Route } from '@/shared/values'
 
-import { useLogin } from '../hooks'
-import { LoginSchema, type TLoginSchema } from '../model'
-import { LOGIN_FIELDS } from '../values'
+import { useResetPassword } from '../hooks'
+import { resetPasswordSchema, type TResetPasswordSchema } from '../model'
+import { RESET_PASSWORD_FIELDS } from '../values'
 
-const INITIAL_FORM_STATE: TLoginSchema = {
-	email: '',
-	password: ''
+const INITIAL_FORM_STATE: TResetPasswordSchema = {
+	newPassword: '',
+	confirmNewPassword: ''
 }
 
-interface ILoginFormProps {
-	afterFields?:
-		| React.ReactNode
-		| ((
-				form: UseFormReturn<TLoginSchema>,
-				isLoading: boolean
-		  ) => React.ReactNode)
+interface IResetPasswordFormProps {
+	token: string
 }
 
-export function LoginForm({ afterFields }: ILoginFormProps) {
-	const form = useForm<TLoginSchema>({
-		resolver: zodResolver(LoginSchema),
+export function ResetPasswordForm({ token }: IResetPasswordFormProps) {
+	const form = useForm<TResetPasswordSchema>({
+		resolver: zodResolver(resetPasswordSchema),
 		mode: 'onTouched',
 		defaultValues: INITIAL_FORM_STATE
 	})
 
-	const { login, isLoadingLogin } = useLogin({
+	const { resetPassword, isLoadingResetPassword } = useResetPassword(token, {
 		onSuccess: () => {
 			form.reset()
 		}
 	})
 
-	const handleSubmit = (values: TLoginSchema) => login(values)
+	const handleSubmit = (values: TResetPasswordSchema) => resetPassword(values)
 
 	return (
 		<WrapperCard
-			title="С возвращением!"
-			description="Войдите в свой аккаунт"
-			footerLinkLabel="Нет аккаунта? Зарегистрироваться ->"
-			footerLinkHref={Route.Register}
+			title="Сброс пароля"
+			footerLinkLabel="На главную ->"
+			footerLinkHref={Route.Home}
 		>
 			<form onSubmit={form.handleSubmit(handleSubmit)}>
 				<FieldGroup>
-					{LOGIN_FIELDS.map((formField) => (
+					{RESET_PASSWORD_FIELDS.map((formField) => (
 						<Controller
 							key={formField.name}
 							name={formField.name}
@@ -72,7 +66,7 @@ export function LoginForm({ afterFields }: ILoginFormProps) {
 										aria-invalid={fieldState.invalid}
 										type={formField.type}
 										placeholder={formField.placeholder}
-										disabled={isLoadingLogin}
+										disabled={isLoadingResetPassword}
 									/>
 									{fieldState.invalid && (
 										<FieldError
@@ -85,14 +79,12 @@ export function LoginForm({ afterFields }: ILoginFormProps) {
 					))}
 
 					<Field>
-						<Button type="submit" disabled={isLoadingLogin}>
-							{isLoadingLogin ? 'Вход в аккаунт...' : 'Войти'}
+						<Button type="submit" disabled={isLoadingResetPassword}>
+							{isLoadingResetPassword
+								? 'Обновление...'
+								: 'Обновить пароль'}
 						</Button>
 					</Field>
-
-					{typeof afterFields === 'function'
-						? afterFields(form, isLoadingLogin)
-						: afterFields}
 				</FieldGroup>
 			</form>
 		</WrapperCard>

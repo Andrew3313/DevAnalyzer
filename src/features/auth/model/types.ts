@@ -1,10 +1,12 @@
 import { UserRole } from '@/entities/user/values'
-import { type Keys } from '@/shared/helpers'
+import { type IBaseFormField } from '@/shared/model'
 
-export interface IFormField<Schema> {
-	name: Keys<Schema>
-	label: string
-	placeholder: string
-	type: string
+import { TRegisterSchema } from './register.schema'
+
+export interface IRegisterFormField<Schema> extends IBaseFormField<Schema> {
 	showIf?: (role: UserRole) => boolean
 }
+
+export type TRegisterApiRequest = Required<
+	Omit<TRegisterSchema, 'role' | 'confirmPassword'>
+>

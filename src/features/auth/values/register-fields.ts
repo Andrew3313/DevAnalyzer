@@ -1,8 +1,10 @@
 import { UserRole } from '@/entities/user/values'
 
-import type { TRegisterSchema, IFormField } from '../model'
+import type { TRegisterSchema, IRegisterFormField } from '../model'
 
-export const REGISTER_FIELDS: ReadonlyArray<IFormField<TRegisterSchema>> = [
+export const REGISTER_FIELDS: ReadonlyArray<
+	IRegisterFormField<TRegisterSchema>
+> = [
 	{
 		name: 'lastName',
 		label: 'Фамилия',

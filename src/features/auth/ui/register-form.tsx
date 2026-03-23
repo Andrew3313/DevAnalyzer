@@ -47,12 +47,13 @@ export function RegisterForm() {
 		name: 'role'
 	})
 
-	const { register, isLoadingRegister } = useRegister()
+	const { register, isLoadingRegister } = useRegister({
+		onSuccess: () => {
+			form.reset()
+		}
+	})
 
-	const handleSubmit = (values: TRegisterSchema) => {
-		register(values)
-		form.reset()
-	}
+	const handleSubmit = (values: TRegisterSchema) => register(values)
 
 	const visibleFields = REGISTER_FIELDS.filter(
 		(field) => !field.showIf || (role && field.showIf(role))
