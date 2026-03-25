@@ -14,14 +14,14 @@ export const AuthRefresh = defineProxy({
 		const accessToken = req.cookies.get(StorageKey.AccessToken)?.value
 		const refreshToken = req.cookies.get(StorageKey.RefreshToken)?.value
 
-		if (!accessToken || !refreshToken) {
+		if (!refreshToken) {
 			res.cookies.set(StorageKey.AccessToken, '', CLEAR_COOKIE_OPTIONS)
 			res.cookies.set(StorageKey.RefreshToken, '', CLEAR_COOKIE_OPTIONS)
 
 			return res
 		}
 
-		if (isTokenValid(accessToken)) {
+		if (accessToken && isTokenValid(accessToken)) {
 			return res
 		}
 
