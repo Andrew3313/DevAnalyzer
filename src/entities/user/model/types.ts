@@ -10,3 +10,7 @@ export interface IUser {
 	company: string
 	position: string
 }
+
+export type TUpdateUserInfoApiRequest = Partial<
+	Omit<IUser, 'id' | 'role' | 'email'>
+>

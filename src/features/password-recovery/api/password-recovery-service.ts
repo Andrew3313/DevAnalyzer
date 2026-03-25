@@ -1,8 +1,10 @@
 import { apiClient } from '@/shared/api'
 
 class PasswordRecoveryService {
+	private baseUrl = '/auth'
+
 	async forgotPassword(email: string) {
-		return apiClient.request('/auth/forgot-password', {
+		return apiClient.request(`${this.baseUrl}/forgot-password`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ email })
@@ -10,7 +12,7 @@ class PasswordRecoveryService {
 	}
 
 	async resetPassword(token: string, newPassword: string) {
-		return apiClient.request('/auth/reset-password', {
+		return apiClient.request(`${this.baseUrl}/reset-password`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({ token, newPassword })
