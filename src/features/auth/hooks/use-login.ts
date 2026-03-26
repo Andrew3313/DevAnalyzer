@@ -2,8 +2,6 @@ import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
-import { Route } from '@/shared/values'
-
 import { authService } from '../api'
 import { type TLoginSchema } from '../model'
 
@@ -20,7 +18,8 @@ export function useLogin(options?: IUseLoginOptions) {
 		onSuccess: () => {
 			options?.onSuccess?.()
 			toast.success('Вы успешно вошли в аккаунт!')
-			router.push(Route.Home)
+
+			router.refresh()
 		},
 		onError: (error) => {
 			console.error('Login error:', error)

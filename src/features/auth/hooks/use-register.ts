@@ -32,6 +32,7 @@ export function useRegister(options?: IUseRegisterOptions) {
 		onSuccess: () => {
 			options?.onSuccess?.()
 			toast.success('Вы успешно зарегистрировались! Войдите в аккаунт.')
+
 			router.push(Route.Login)
 		},
 		onError: (error) => {

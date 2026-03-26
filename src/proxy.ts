@@ -5,9 +5,10 @@ import { withProxy, type IProxy } from '@/shared/proxy'
 
 const PROXIES: IProxy[] = [AuthRefresh, AuthRedirectGuard]
 
-export async function proxy(req: NextRequest) {
+export async function proxy(request: NextRequest) {
 	const response = NextResponse.next()
-	return withProxy(req, response, PROXIES)
+
+	return withProxy(request, response, PROXIES)
 }
 
 export const config = {

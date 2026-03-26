@@ -1,38 +1,44 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-import { defineProxy, preserveSetCookies } from '@/shared/proxy'
-import { Route, StorageKey } from '@/shared/values'
+import {
+	defineProxy,
+	HEADER_AUTH_VALID,
+	preserveSetCookies
+} from '@/shared/proxy'
+import { Route } from '@/shared/values'
 
 import { PRIVATE_PATH_PREFIXES, PUBLIC_AUTH_PAGES } from '../values'
 
 export const AuthRedirectGuard = defineProxy({
 	global: true,
-	handler: async (req: NextRequest, res: NextResponse) => {
-		const pathname = req.nextUrl.pathname
+	handler: async (request: NextRequest, response: NextResponse) => {
+		const pathname = request.nextUrl.pathname
 
 		const isAuthPage = PUBLIC_AUTH_PAGES.includes(pathname as Route)
 		const isPrivateRoute = PRIVATE_PATH_PREFIXES.some((prefix) =>
 			pathname.startsWith(prefix)
 		)
 
-		const accessToken = req.cookies.get(StorageKey.AccessToken)?.value
+		const authValid = request.headers.get(HEADER_AUTH_VALID) === 'true'
 
-		if (accessToken && isAuthPage) {
-			const redirect = NextResponse.redirect(new URL(Route.Home, req.url))
-			preserveSetCookies(res, redirect)
-
-			return redirect
-		}
-
-		if (!accessToken && isPrivateRoute) {
+		if (authValid && isAuthPage) {
 			const redirect = NextResponse.redirect(
-				new URL(Route.Login, req.url)
+				new URL(Route.Home, request.url)
 			)
-			preserveSetCookies(res, redirect)
+			preserveSetCookies(response, redirect)
 
 			return redirect
 		}
 
-		return res
+		if (!authValid && isPrivateRoute) {
+			const redirect = NextResponse.redirect(
+				new URL(Route.Login, request.url)
+			)
+			preserveSetCookies(response, redirect)
+
+			return redirect
+		}
+
+		return response
 	}
 })

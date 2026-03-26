@@ -5,8 +5,10 @@ import type { IUser, TUpdateUserInfoApiRequest } from '../model'
 class UserService {
 	private baseUrl = '/api/users'
 
-	async getSelf(): Promise<IUser> {
-		return apiClient.request(`${this.baseUrl}/me`)
+	async getSelf(extraHeaders?: HeadersInit): Promise<IUser> {
+		return apiClient.request(`${this.baseUrl}/me`, {
+			headers: extraHeaders
+		})
 	}
 
 	async updateInfo(values: TUpdateUserInfoApiRequest) {

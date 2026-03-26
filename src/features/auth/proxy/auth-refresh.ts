@@ -1,31 +1,46 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-import { isTokenValid } from '@/shared/helpers'
+import {
+	buildCookieStringFromSetCookies,
+	getCookieOptions,
+	isTokenValid
+} from '@/shared/helpers'
 import { defineProxy } from '@/shared/proxy'
-import { getCookieOptions, StorageKey } from '@/shared/values'
+import { StorageKey } from '@/shared/values'
 
 import { authService } from '../api'
+import { setAuthData } from './set-auth-data'
 
 const CLEAR_COOKIE_OPTIONS = getCookieOptions({ maxAge: 0 })
 
 export const AuthRefresh = defineProxy({
 	global: true,
-	handler: async (req: NextRequest, res: NextResponse) => {
-		const accessToken = req.cookies.get(StorageKey.AccessToken)?.value
-		const refreshToken = req.cookies.get(StorageKey.RefreshToken)?.value
+	handler: async (request: NextRequest, response: NextResponse) => {
+		const accessToken = request.cookies.get(StorageKey.AccessToken)?.value
+		const refreshToken = request.cookies.get(StorageKey.RefreshToken)?.value
 
 		if (!refreshToken) {
-			res.cookies.set(StorageKey.AccessToken, '', CLEAR_COOKIE_OPTIONS)
-			res.cookies.set(StorageKey.RefreshToken, '', CLEAR_COOKIE_OPTIONS)
+			response.cookies.set(
+				StorageKey.AccessToken,
+				'',
+				CLEAR_COOKIE_OPTIONS
+			)
+			response.cookies.set(
+				StorageKey.RefreshToken,
+				'',
+				CLEAR_COOKIE_OPTIONS
+			)
 
-			return res
+			return setAuthData(request, response, false)
 		}
 
 		if (accessToken && isTokenValid(accessToken)) {
-			return res
+			const currentCookie = request.headers.get('cookie') || ''
+
+			return setAuthData(request, response, true, currentCookie)
 		}
 
-		const cookieHeader = req.headers.get('cookie') || ''
+		const cookieHeader = request.headers.get('cookie') || ''
 		try {
 			const refreshResponse = await authService.refresh(cookieHeader)
 			if (!refreshResponse.ok) {
@@ -34,17 +49,29 @@ export const AuthRefresh = defineProxy({
 				)
 			}
 
-			const setCookieHeaders = refreshResponse.headers.getSetCookie()
-			setCookieHeaders.forEach((cookie) => {
-				res.headers.append('Set-Cookie', cookie)
+			const setCookies = refreshResponse.headers.getSetCookie()
+			setCookies.forEach((cookie) => {
+				response.headers.append('Set-Cookie', cookie)
 			})
+
+			const newCookieString = buildCookieStringFromSetCookies(setCookies)
+
+			return setAuthData(request, response, true, newCookieString)
 		} catch (error) {
 			console.error('Refresh failed', error)
 
-			res.cookies.set(StorageKey.AccessToken, '', CLEAR_COOKIE_OPTIONS)
-			res.cookies.set(StorageKey.RefreshToken, '', CLEAR_COOKIE_OPTIONS)
-		}
+			response.cookies.set(
+				StorageKey.AccessToken,
+				'',
+				CLEAR_COOKIE_OPTIONS
+			)
+			response.cookies.set(
+				StorageKey.RefreshToken,
+				'',
+				CLEAR_COOKIE_OPTIONS
+			)
 
-		return res
+			return setAuthData(request, response, false)
+		}
 	}
 })

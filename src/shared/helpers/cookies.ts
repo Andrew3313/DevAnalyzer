@@ -1,7 +1,8 @@
+import setCookieParser from 'set-cookie-parser'
+
 import type { ResponseCookie } from 'next/dist/compiled/@edge-runtime/cookies'
 
 const COOKIE_DOMAIN = process.env.NEXT_PUBLIC_COOKIE_DOMAIN
-
 export const BASE_COOKIE_OPTIONS: Partial<ResponseCookie> = {
 	httpOnly: true,
 	path: '/',
@@ -16,3 +17,14 @@ export const getCookieOptions = (
 	...BASE_COOKIE_OPTIONS,
 	...extra
 })
+
+export function buildCookieStringFromSetCookies(setCookies: string[]): string {
+	if (!setCookies.length) return ''
+
+	const parsed = setCookieParser.parse(setCookies, { decodeValues: true })
+	const cookieString = parsed
+		.map((cookie) => `${cookie.name}=${cookie.value}`)
+		.join('; ')
+
+	return cookieString
+}
