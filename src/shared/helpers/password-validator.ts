@@ -1,10 +1,10 @@
 import { z } from 'zod'
 
-import {
-	HAS_DIGIT,
-	HAS_UPPERCASE,
-	LATIN_ALPHANUMERIC_SYMBOLS
-} from '@/shared/values'
+const HAS_DIGIT = /[0-9]/
+const HAS_UPPERCASE = /[A-Z]/
+
+export const LATIN_ALPHANUMERIC_SYMBOLS =
+	/^[A-Za-z0-9!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]*$/
 
 interface IPasswordValidatorOptions {
 	min?: number

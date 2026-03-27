@@ -1,7 +1,6 @@
-import { getServerUser } from '@/entities/user/api'
-import { ToggleTheme } from '@/features/toggle-theme/ui'
 import { Container } from '@/shared/ui'
-import { Logo } from '@/shared/ui/icons'
+import { Footer } from '@/widgets/footer/ui'
+import { Header } from '@/widgets/header/ui'
 
 interface IMainLayoutProps {
 	children: React.ReactNode
@@ -10,27 +9,15 @@ interface IMainLayoutProps {
 export default async function MainLayout({
 	children
 }: Readonly<IMainLayoutProps>) {
-	const user = await getServerUser()
-
 	return (
 		<>
-			<header className="flex items-center justify-between p-2">
-				<Logo size="lg" />
-				<div className="flex items-center gap-2">
-					<ToggleTheme />
-					{user && (
-						<span>
-							{user.firstName} {user.lastName}
-						</span>
-					)}
-				</div>
-			</header>
+			<Header />
 
-			<main className="grow">
+			<main className="mb-4 grow">
 				<Container>{children}</Container>
 			</main>
 
-			<footer>Footer</footer>
+			<Footer />
 		</>
 	)
 }

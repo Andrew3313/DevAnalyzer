@@ -2,7 +2,8 @@ import { z } from 'zod'
 
 import { UserRole } from '@/entities/user/values'
 import { isEmpty, passwordValidator } from '@/shared/helpers'
-import { NO_WHITESPACE } from '@/shared/values'
+
+const NO_WHITESPACE = /^[^\s]+$/
 
 export const RegisterSchema = z
 	.object({

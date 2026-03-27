@@ -6,7 +6,7 @@ export default function AccessLayout({
 	children
 }: Readonly<IAccessLayoutProps>) {
 	return (
-		<div className="flex min-h-[80vh] items-center justify-center p-6">
+		<div className="flex min-h-[60vh] items-center justify-center px-4">
 			{children}
 		</div>
 	)
