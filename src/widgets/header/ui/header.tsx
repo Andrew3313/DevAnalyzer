@@ -14,7 +14,7 @@ export async function Header() {
 
 	return (
 		<header className="mb-4">
-			<Container className="flex items-center justify-between px-4 py-2">
+			<Container className="border-border flex items-center justify-between border-b px-4 py-2">
 				<Link href={Route.Home} className="flex items-center gap-3">
 					<Logo />
 					<span className="hidden text-xl font-bold sm:inline">

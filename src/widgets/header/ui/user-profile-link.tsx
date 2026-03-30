@@ -17,18 +17,19 @@ export const UserProfileLink = ({ user, avatarUrl }: IUserProfileLinkProps) => (
 		href={Route.Profile}
 		className={cn('max-w-35', buttonVariants({ variant: 'outline' }))}
 	>
-		{avatarUrl ? (
-			<div className="relative size-5 shrink-0 overflow-hidden rounded-full">
+		<div className="relative size-5 shrink-0 overflow-hidden rounded-full">
+			{avatarUrl ? (
 				<Image
 					src={avatarUrl}
 					alt="User avatar"
 					fill
 					className="object-cover"
+					sizes="1.25rem"
 				/>
-			</div>
-		) : (
-			<User className="size-5" />
-		)}
+			) : (
+				<User className="size-full" />
+			)}
+		</div>
 
 		<span className="truncate">
 			{user.firstName} {user.lastName}
