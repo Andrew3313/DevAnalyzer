@@ -6,7 +6,7 @@ import { Route } from '@/shared/values'
 
 export const Footer = () => (
 	<footer className="text-muted-foreground/90 text-sm font-medium">
-		<Container className="border-border flex flex-col items-center justify-between gap-2 border-t px-4 py-2 sm:flex-row">
+		<Container className="border-border flex flex-col items-center justify-between gap-2 border-t py-2 sm:flex-row">
 			<span>Проектный практикум 2026</span>
 
 			<Link
