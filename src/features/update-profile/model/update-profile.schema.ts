@@ -23,8 +23,17 @@ export const UpdateProfileSchema = z.object({
 			'Должно быть одним словом'
 		),
 
-	company: z.string().max(100, 'Максимум 100 символов'),
-	position: z.string().max(100, 'Максимум 100 символов')
+	company: z
+		.string()
+		.min(1, 'Укажите компанию')
+		.max(100, 'Максимум 100 символов')
+		.optional(),
+
+	position: z
+		.string()
+		.min(1, 'Укажите должность')
+		.max(100, 'Максимум 100 символов')
+		.optional()
 })
 
 export type TUpdateProfileSchema = z.infer<typeof UpdateProfileSchema>

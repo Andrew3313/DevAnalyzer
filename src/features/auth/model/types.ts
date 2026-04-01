@@ -7,6 +7,7 @@ export interface IRegisterFormField<Schema> extends IBaseFormField<Schema> {
 	showIf?: (role: UserRole) => boolean
 }
 
-export type TRegisterApiRequest = Required<
-	Omit<TRegisterSchema, 'role' | 'confirmPassword'>
+export type TRegisterApiRequest = Omit<
+	TRegisterSchema,
+	'role' | 'confirmPassword'
 >

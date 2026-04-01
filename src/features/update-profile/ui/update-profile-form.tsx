@@ -23,8 +23,8 @@ const mapUserToFormData = (user: IUser): TUpdateProfileSchema => ({
 	firstName: user.firstName,
 	lastName: user.lastName,
 	patronymic: user.patronymic,
-	company: user.company,
-	position: user.position
+	company: user.company ?? undefined,
+	position: user.position ?? undefined
 })
 
 interface IUpdateProfileFormProps {

@@ -2,21 +2,12 @@ import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
+import { UserRole } from '@/entities/user/values'
 import { Route } from '@/shared/values'
 
 import { authService } from '../api'
 
 import type { TRegisterApiRequest, TRegisterSchema } from '../model'
-
-const toRegisterApiRequest = (data: TRegisterSchema): TRegisterApiRequest => ({
-	email: data.email,
-	password: data.password,
-	firstName: data.firstName,
-	lastName: data.lastName,
-	patronymic: data.patronymic,
-	company: data.company ?? '',
-	position: data.position ?? ''
-})
 
 export interface IUseRegisterOptions {
 	onSuccess?: () => void
@@ -42,4 +33,22 @@ export function useRegister(options?: IUseRegisterOptions) {
 	})
 
 	return { register, isLoadingRegister }
+}
+
+function toRegisterApiRequest(data: TRegisterSchema): TRegisterApiRequest {
+	const base = {
+		email: data.email,
+		password: data.password,
+		firstName: data.firstName,
+		lastName: data.lastName,
+		patronymic: data.patronymic
+	}
+
+	if (data.role === UserRole.USER) return base
+
+	return {
+		...base,
+		company: data.company ?? '',
+		position: data.position ?? ''
+	}
 }

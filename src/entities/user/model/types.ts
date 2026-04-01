@@ -7,8 +7,8 @@ export interface IUser {
 	patronymic: string
 	lastName: string
 	role: UserRole
-	company: string
-	position: string
+	company: string | null
+	position: string | null
 }
 
 export type TUpdateUserInfoApiRequest = Partial<

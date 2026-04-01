@@ -14,13 +14,17 @@ export function useUpdateProfile() {
 			mutationFn: (values: TUpdateUserInfoApiRequest) =>
 				userService.updateInfo(values),
 			onSuccess: () => {
-				toast.success('Профиль успешно обновлен!')
+				toast.success('Профиль успешно обновлен!', {
+					position: 'bottom-center'
+				})
 
 				router.refresh()
 			},
 			onError(error) {
 				console.error('Error update profile:', error)
-				toast.error('Что-то пошло не так, попробуйте еще раз')
+				toast.error('Что-то пошло не так, попробуйте еще раз', {
+					position: 'bottom-center'
+				})
 			}
 		}
 	)
