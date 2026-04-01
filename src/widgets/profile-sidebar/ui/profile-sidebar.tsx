@@ -28,12 +28,12 @@ export function ProfileSidebar({
 
 	return (
 		<Card
-			className={cn('w-full shrink-0 py-0 shadow-sm sm:w-64', className)}
+			className={cn('w-full shrink-0 py-0 shadow-sm md:w-64', className)}
 		>
 			<CardContent className="p-4">
 				{slots?.top && <div className="mb-4">{slots.top}</div>}
 
-				<div className="grid grid-cols-2 gap-4 sm:grid-cols-1">
+				<div className="grid grid-cols-2 gap-4 md:grid-cols-1">
 					{allowedLinks.map((tab) => (
 						<Link
 							key={tab.href}
@@ -43,7 +43,7 @@ export function ProfileSidebar({
 								buttonVariants({
 									variant: 'ghost',
 									size: 'lg',
-									className: 'sm:justify-start'
+									className: 'md:justify-start'
 								}),
 								{
 									active: activeLink === tab.href
