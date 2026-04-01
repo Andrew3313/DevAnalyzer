@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024 // 5 MB
-const ACCEPTED_IMAGE_TYPES = z.enum([
+const AcceptedImageTypes = z.enum([
 	'image/jpeg',
 	'image/jpg',
 	'image/png',
@@ -15,7 +15,7 @@ const ImageFileSchema = z
 		`Размер файла не должен превышать ${MAX_FILE_SIZE / (1024 * 1024)} МБ`
 	)
 	.refine(
-		(file) => ACCEPTED_IMAGE_TYPES.safeParse(file.type).success,
+		(file) => AcceptedImageTypes.safeParse(file.type).success,
 		'Поддерживаются только JPEG, PNG, WEBP'
 	)
 
