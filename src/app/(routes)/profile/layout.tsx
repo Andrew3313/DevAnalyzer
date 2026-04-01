@@ -8,6 +8,7 @@ import { StateMessage } from '@/shared/ui'
 import { buttonVariants } from '@/shared/ui/kit'
 import { Route } from '@/shared/values'
 import { ProfileSidebar } from '@/widgets/profile-sidebar/ui'
+import { UserInfo } from '@/widgets/user-info/ui'
 
 export const metadata: Metadata = {
 	title: {
@@ -24,7 +25,7 @@ interface IProfileLayoutProps {
 export default async function ProfileLayout({
 	children
 }: Readonly<IProfileLayoutProps>) {
-	const { user } = await getServerUserData()
+	const { user, avatarUrl } = await getServerUserData()
 
 	if (!user) {
 		return (
@@ -50,7 +51,12 @@ export default async function ProfileLayout({
 			</Link>
 
 			<div className="flex flex-col gap-4 sm:flex-row sm:gap-8">
-				<ProfileSidebar role={user.role} />
+				<ProfileSidebar
+					user={user}
+					slots={{
+						top: <UserInfo user={user} avatarUrl={avatarUrl} />
+					}}
+				/>
 
 				<div className="flex-1">{children}</div>
 			</div>

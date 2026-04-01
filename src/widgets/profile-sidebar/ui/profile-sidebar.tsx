@@ -1,42 +1,51 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 
-import { UserRole } from '@/entities/user/values'
+import { type IUser } from '@/entities/user/model'
 import { cn } from '@/shared/helpers'
 import { buttonVariants, Card, CardContent } from '@/shared/ui/kit'
 
-import { getProfileTabs } from '../helpers'
+import { useProfileLinks } from '../hooks'
+
+interface IProfileSidebarSlots {
+	top?: React.ReactNode
+	bottom?: React.ReactNode
+}
 
 interface IProfileSidebarProps {
-	role: UserRole
+	user: IUser
+	slots?: IProfileSidebarSlots
 	className?: string
 }
 
-export function ProfileSidebar({ role, className }: IProfileSidebarProps) {
-	const pathname = usePathname()
-
-	const allowedTabs = getProfileTabs(role)
-	const activeTab =
-		allowedTabs.find((tab) => tab.href === pathname)?.href ?? ''
+export function ProfileSidebar({
+	user,
+	slots,
+	className
+}: IProfileSidebarProps) {
+	const { allowedLinks, activeLink } = useProfileLinks(user.role)
 
 	return (
 		<Card className={cn('w-full shrink-0 py-0 sm:w-64', className)}>
 			<CardContent className="p-4">
+				{slots?.top && <div className="mb-4">{slots.top}</div>}
+
 				<div className="grid grid-cols-2 gap-4 sm:grid-cols-1">
-					{allowedTabs.map((tab) => (
+					{allowedLinks.map((tab) => (
 						<Link
 							key={tab.href}
 							href={tab.href}
 							className={cn(
+								'animate-underline',
 								buttonVariants({
 									variant: 'ghost',
 									size: 'lg',
 									className: 'sm:justify-start'
 								}),
-								'animate-underline',
-								activeTab === tab.href && 'active'
+								{
+									active: activeLink === tab.href
+								}
 							)}
 						>
 							{tab.icon && <tab.icon className="size-5" />}
@@ -44,6 +53,8 @@ export function ProfileSidebar({ role, className }: IProfileSidebarProps) {
 						</Link>
 					))}
 				</div>
+
+				{slots?.bottom && <div className="mt-4">{slots.bottom}</div>}
 			</CardContent>
 		</Card>
 	)

@@ -1,8 +1,7 @@
-import { User } from 'lucide-react'
-import Image from 'next/image'
 import Link from 'next/link'
 
 import { type IUser } from '@/entities/user/model'
+import { UserAvatar } from '@/entities/user/ui'
 import { cn } from '@/shared/helpers'
 import { buttonVariants } from '@/shared/ui/kit'
 import { Route } from '@/shared/values'
@@ -17,19 +16,11 @@ export const UserProfileLink = ({ user, avatarUrl }: IUserProfileLinkProps) => (
 		href={Route.Profile}
 		className={cn('max-w-35', buttonVariants({ variant: 'outline' }))}
 	>
-		<div className="relative size-5 shrink-0 overflow-hidden rounded-full">
-			{avatarUrl ? (
-				<Image
-					src={avatarUrl}
-					alt="User avatar"
-					fill
-					className="object-cover"
-					sizes="1.25rem"
-				/>
-			) : (
-				<User className="size-full" />
-			)}
-		</div>
+		<UserAvatar
+			src={avatarUrl}
+			fallback={user.firstName[0]}
+			className="size-5"
+		/>
 
 		<span className="truncate">
 			{user.firstName} {user.lastName}

@@ -5,7 +5,7 @@ import { Field } from '@/shared/ui/kit'
 
 import { ForgotWrapper } from './forgot-wrapper'
 
-export function LoginWidget() {
+export function Login() {
 	return (
 		<LoginForm
 			afterFields={(form, isLoading) => (

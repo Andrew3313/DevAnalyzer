@@ -5,7 +5,7 @@ import { Route } from '@/shared/values'
 
 import type { ForwardRefExoticComponent, RefAttributes } from 'react'
 
-export interface IProfileTab {
+export interface IProfileLink {
 	href: Route
 	label: string
 	icon?: ForwardRefExoticComponent<

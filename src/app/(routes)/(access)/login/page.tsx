@@ -1,11 +1,11 @@
 import { type Metadata } from 'next'
 
-import { LoginWidget } from '@/widgets/login-widget/ui'
+import { Login } from '@/widgets/login/ui'
 
 export const metadata: Metadata = {
 	title: 'Вход в аккаунт | DevAnalyzer'
 }
 
 export default function LoginPage() {
-	return <LoginWidget />
+	return <Login />
 }

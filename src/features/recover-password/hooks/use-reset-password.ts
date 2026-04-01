@@ -4,7 +4,7 @@ import { toast } from 'sonner'
 
 import { Route } from '@/shared/values'
 
-import { passwordRecoveryService } from '../api'
+import { recoverPasswordService } from '../api'
 import { type TResetPasswordSchema } from '../model'
 
 interface IUseResetPasswordOptions {
@@ -21,10 +21,7 @@ export function useResetPassword(
 		useMutation({
 			mutationKey: ['reset-password', token],
 			mutationFn: (values: TResetPasswordSchema) =>
-				passwordRecoveryService.resetPassword(
-					token,
-					values.newPassword
-				),
+				recoverPasswordService.resetPassword(token, values.newPassword),
 			onSuccess() {
 				options?.onSuccess?.()
 				toast.success('Пароль успешно обновлен!')

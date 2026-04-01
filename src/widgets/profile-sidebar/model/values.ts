@@ -3,9 +3,9 @@ import { Heart, LockKeyhole, User, History } from 'lucide-react'
 import { UserRole } from '@/entities/user/values'
 import { Route } from '@/shared/values'
 
-import { type IProfileTab } from './types'
+import { type IProfileLink } from './types'
 
-export const PROFILE_TABS: ReadonlyArray<IProfileTab> = [
+export const PROFILE_LINKS: ReadonlyArray<IProfileLink> = [
 	{
 		href: Route.Profile,
 		label: 'Профиль',

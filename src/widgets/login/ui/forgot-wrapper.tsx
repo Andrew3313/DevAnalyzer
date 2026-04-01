@@ -3,7 +3,7 @@
 import { useWatch, type UseFormReturn } from 'react-hook-form'
 
 import { TLoginSchema } from '@/features/auth/model'
-import { ForgotButton } from '@/features/password-recovery/ui'
+import { ForgotButton } from '@/features/recover-password/ui'
 
 interface IForgotWrapperProps {
 	form: UseFormReturn<TLoginSchema>
