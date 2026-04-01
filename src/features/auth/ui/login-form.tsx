@@ -75,9 +75,9 @@ export function LoginForm({ afterFields }: ILoginFormProps) {
 										disabled={isLoadingLogin}
 									/>
 									{fieldState.invalid && (
-										<FieldError
-											errors={[fieldState.error]}
-										/>
+										<FieldError>
+											{fieldState.error?.message}
+										</FieldError>
 									)}
 								</Field>
 							)}

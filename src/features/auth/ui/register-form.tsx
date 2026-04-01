@@ -97,7 +97,9 @@ export function RegisterForm() {
 									</SelectContent>
 								</Select>
 								{fieldState.invalid && (
-									<FieldError errors={[fieldState.error]} />
+									<FieldError>
+										{fieldState.error?.message}
+									</FieldError>
 								)}
 							</Field>
 						)}
@@ -122,9 +124,9 @@ export function RegisterForm() {
 										disabled={isLoadingRegister}
 									/>
 									{fieldState.invalid && (
-										<FieldError
-											errors={[fieldState.error]}
-										/>
+										<FieldError>
+											{fieldState.error?.message}
+										</FieldError>
 									)}
 								</Field>
 							)}
