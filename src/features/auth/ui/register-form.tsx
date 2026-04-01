@@ -137,9 +137,7 @@ export function RegisterForm() {
 							className="w-full"
 							disabled={isLoadingRegister}
 						>
-							{isLoadingRegister
-								? 'Регистрация...'
-								: 'Зарегистрироваться'}
+							Зарегистрироваться
 						</Button>
 					</Field>
 				</FieldGroup>

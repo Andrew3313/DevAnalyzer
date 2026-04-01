@@ -27,7 +27,7 @@ export function ForgotButton({
 		try {
 			const isValid = await validateEmail(email)
 			if (!isValid) {
-				toast.error('Пожалуйста, введите корректный email.')
+				toast.error('Пожалуйста, введите корректный email')
 				return
 			}
 
@@ -35,7 +35,7 @@ export function ForgotButton({
 		} catch (error) {
 			console.error('Validate email error:', error)
 			toast.error(
-				'Что-то пошло не так. Проверьте введенный email и попробуйте ещё раз.'
+				'Что-то пошло не так. Проверьте введенный email и попробуйте ещё раз'
 			)
 		}
 	}

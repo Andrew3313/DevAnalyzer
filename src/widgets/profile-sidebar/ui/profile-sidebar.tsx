@@ -27,7 +27,9 @@ export function ProfileSidebar({
 	const { allowedLinks, activeLink } = useProfileLinks(user.role)
 
 	return (
-		<Card className={cn('w-full shrink-0 py-0 sm:w-64', className)}>
+		<Card
+			className={cn('w-full shrink-0 py-0 shadow-sm sm:w-64', className)}
+		>
 			<CardContent className="p-4">
 				{slots?.top && <div className="mb-4">{slots.top}</div>}
 

@@ -24,7 +24,7 @@ export function useLogin(options?: IUseLoginOptions) {
 		onError: (error) => {
 			console.error('Login error:', error)
 			toast.error(
-				`Произошла ошибка. Проверьте введенные данные и попробуйте ещё раз.`
+				`Произошла ошибка. Проверьте введенные данные и попробуйте ещё раз`
 			)
 		}
 	})

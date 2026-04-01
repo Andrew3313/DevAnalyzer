@@ -50,7 +50,7 @@ export default async function ProfileLayout({
 				<span>На главную</span>
 			</Link>
 
-			<div className="flex flex-col gap-4 sm:flex-row sm:gap-8">
+			<div className="flex flex-col gap-4 sm:flex-row md:gap-8">
 				<ProfileSidebar
 					user={user}
 					slots={{

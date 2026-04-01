@@ -10,12 +10,12 @@ export function useForgotPassword() {
 			recoverPasswordService.forgotPassword(email),
 		onSuccess: () => {
 			toast.success(
-				'На указанную почту отправлено письмо для сброса пароля.'
+				'На указанную почту отправлено письмо для сброса пароля'
 			)
 		},
 		onError: (error) => {
 			console.error('Forgot password error:', error)
-			toast.error('Не удалось отправить письмо. Попробуйте позже.')
+			toast.error('Не удалось отправить письмо. Попробуйте позже')
 		}
 	})
 

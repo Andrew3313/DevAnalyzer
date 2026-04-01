@@ -25,11 +25,12 @@ export function useResetPassword(
 			onSuccess() {
 				options?.onSuccess?.()
 				toast.success('Пароль успешно обновлен!')
+
 				router.replace(Route.Home)
 			},
 			onError(error) {
 				console.error('Password refresh error:', error)
-				toast.error('Что-то пошло не так, попробуйте еще раз.')
+				toast.error('Что-то пошло не так, попробуйте еще раз')
 			}
 		})
 

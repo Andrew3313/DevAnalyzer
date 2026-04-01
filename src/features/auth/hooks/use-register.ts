@@ -31,13 +31,13 @@ export function useRegister(options?: IUseRegisterOptions) {
 			authService.register(toRegisterApiRequest(values)),
 		onSuccess: () => {
 			options?.onSuccess?.()
-			toast.success('Вы успешно зарегистрировались! Войдите в аккаунт.')
+			toast.success('Вы успешно зарегистрировались! Войдите в аккаунт')
 
 			router.push(Route.Login)
 		},
 		onError: (error) => {
 			console.error('Register error:', error)
-			toast.error(`Произошла ошибка. Пожалуйста, попробуйте ещё раз.`)
+			toast.error(`Произошла ошибка. Пожалуйста, попробуйте ещё раз`)
 		}
 	})
 

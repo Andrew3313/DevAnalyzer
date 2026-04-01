@@ -1,7 +1,7 @@
 import { UserRole } from '@/entities/user/values'
 import { type IBaseFormField } from '@/shared/model'
 
-import { TRegisterSchema } from './register.schema'
+import { type TRegisterSchema } from './register.schema'
 
 export interface IRegisterFormField<Schema> extends IBaseFormField<Schema> {
 	showIf?: (role: UserRole) => boolean

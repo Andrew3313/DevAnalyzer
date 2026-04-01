@@ -47,7 +47,7 @@ export function UserInfo({ user, avatarUrl }: IUserInfoProps) {
 			<UpdateAvatar src={avatarUrl} fallback={user.firstName[0]} />
 
 			<div className="flex w-full flex-col gap-1">
-				<span className="text-center font-bold wrap-break-word">
+				<span className="text-center text-lg font-bold wrap-break-word">
 					{user.lastName} {user.firstName} {user.patronymic}
 				</span>
 				<span className="text-muted-foreground text-center text-xs wrap-break-word">

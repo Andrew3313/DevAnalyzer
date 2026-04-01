@@ -86,7 +86,7 @@ export function LoginForm({ afterFields }: ILoginFormProps) {
 
 					<Field>
 						<Button type="submit" disabled={isLoadingLogin}>
-							{isLoadingLogin ? 'Вход в аккаунт...' : 'Войти'}
+							Войти
 						</Button>
 					</Field>
 

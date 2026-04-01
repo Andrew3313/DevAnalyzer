@@ -17,7 +17,7 @@ export function useUpdateAvatar() {
 		},
 		onError: (error) => {
 			console.error('Update avatar error:', error)
-			toast.error('Что-то пошло не так, попробуйте еще раз.')
+			toast.error('Что-то пошло не так, попробуйте еще раз')
 		}
 	})
 

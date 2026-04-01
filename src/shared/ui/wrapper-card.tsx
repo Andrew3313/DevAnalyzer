@@ -30,7 +30,7 @@ export function WrapperCard({
 	className
 }: PropsWithChildren<IWrapperCardProps>) {
 	return (
-		<Card className={cn('w-full max-w-100 shadow-md', className)}>
+		<Card className={cn('w-full max-w-100 shadow-sm', className)}>
 			<CardHeader className="space-y-2 text-center">
 				<CardTitle className="text-xl font-semibold sm:text-2xl">
 					{title}
