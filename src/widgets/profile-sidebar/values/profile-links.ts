@@ -1,9 +1,19 @@
 import { Heart, LockKeyhole, User, History } from 'lucide-react'
+import { type LucideProps } from 'lucide-react'
 
 import { UserRole } from '@/entities/user/values'
 import { Route } from '@/shared/values'
 
-import { type IProfileLink } from './types'
+import type { ForwardRefExoticComponent, RefAttributes } from 'react'
+
+interface IProfileLink {
+	href: Route
+	label: string
+	icon?: ForwardRefExoticComponent<
+		Omit<LucideProps, 'ref'> & RefAttributes<SVGSVGElement>
+	>
+	roles: UserRole[]
+}
 
 export const PROFILE_LINKS: ReadonlyArray<IProfileLink> = [
 	{

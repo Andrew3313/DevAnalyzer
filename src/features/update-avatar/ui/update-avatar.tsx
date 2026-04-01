@@ -1,9 +1,10 @@
 'use client'
 
 import { Pencil } from 'lucide-react'
+import { toast } from 'sonner'
 
 import { IUserAvatarProps, UserAvatar } from '@/entities/user/ui'
-import { cn } from '@/shared/helpers'
+import { cn, validateImageFile } from '@/shared/helpers'
 import { Input } from '@/shared/ui/kit'
 
 import { useUpdateAvatar } from '../hooks'
@@ -25,6 +26,12 @@ export function UpdateAvatar({
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const file = event.target.files?.[0]
 		if (!file) return
+
+		const validation = validateImageFile(file)
+		if (!validation.success) {
+			toast.error(validation.message)
+			return
+		}
 
 		updateAvatar(file)
 	}

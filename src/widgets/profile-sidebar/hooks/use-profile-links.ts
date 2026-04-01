@@ -2,7 +2,7 @@ import { usePathname } from 'next/navigation'
 
 import { UserRole } from '@/entities/user/values'
 
-import { PROFILE_LINKS } from '../model'
+import { PROFILE_LINKS } from '../values'
 
 const getProfileLinks = (role: UserRole) =>
 	PROFILE_LINKS.filter((tab) => tab.roles.includes(role))
