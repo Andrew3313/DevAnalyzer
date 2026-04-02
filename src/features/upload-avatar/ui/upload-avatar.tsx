@@ -7,21 +7,21 @@ import { IUserAvatarProps, UserAvatar } from '@/entities/user/ui'
 import { cn, validateImageFile } from '@/shared/helpers'
 import { Input } from '@/shared/ui/kit'
 
-import { useUpdateAvatar } from '../hooks'
+import { useUploadAvatar } from '../hooks'
 
-interface IUpdateAvatarProps extends IUserAvatarProps {
+interface IUploadAvatarProps extends IUserAvatarProps {
 	avatarClassName?: string
 }
 
-export function UpdateAvatar({
+export function UploadAvatar({
 	src,
 	fallback,
 	className,
 	imageClassName,
 	fallbackClassName,
 	avatarClassName
-}: IUpdateAvatarProps) {
-	const { updateAvatar, isUpdatingAvatar } = useUpdateAvatar()
+}: IUploadAvatarProps) {
+	const { uploadAvatar, isUploadingAvatar } = useUploadAvatar()
 
 	const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const file = event.target.files?.[0]
@@ -33,7 +33,7 @@ export function UpdateAvatar({
 			return
 		}
 
-		updateAvatar(file)
+		uploadAvatar(file)
 	}
 
 	return (
@@ -54,7 +54,7 @@ export function UpdateAvatar({
 				type="file"
 				accept="image/*"
 				onChange={handleFileChange}
-				disabled={isUpdatingAvatar}
+				disabled={isUploadingAvatar}
 				className="hidden"
 			/>
 		</label>

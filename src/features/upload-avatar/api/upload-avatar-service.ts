@@ -1,8 +1,8 @@
 import { apiClient } from '@/shared/api'
 import { unquote } from '@/shared/helpers'
 
-class UpdateAvatarService {
-	async updateAvatar(file: File) {
+class UploadAvatarService {
+	async uploadAvatar(file: File) {
 		const uploadUrl = await this.requestUploadUrl()
 		await this.uploadToS3(unquote(uploadUrl), file)
 	}
@@ -22,4 +22,4 @@ class UpdateAvatarService {
 	}
 }
 
-export const updateAvatarService = new UpdateAvatarService()
+export const uploadAvatarService = new UploadAvatarService()

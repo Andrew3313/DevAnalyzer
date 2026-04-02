@@ -1,6 +1,6 @@
 import { type IUser } from '@/entities/user/model'
 import { UserRole } from '@/entities/user/values'
-import { UpdateAvatar } from '@/features/update-avatar/ui'
+import { UploadAvatar } from '@/features/upload-avatar/ui'
 import { cn } from '@/shared/helpers'
 import { Badge, Separator } from '@/shared/ui/kit'
 
@@ -44,7 +44,7 @@ export function UserInfo({ user, avatarUrl }: IUserInfoProps) {
 				{roleInfo.label}
 			</Badge>
 
-			<UpdateAvatar src={avatarUrl} fallback={user.firstName[0]} />
+			<UploadAvatar src={avatarUrl} fallback={user.firstName[0]} />
 
 			<div className="flex w-full flex-col gap-1">
 				<span className="text-center text-lg font-bold wrap-break-word">

@@ -2,16 +2,16 @@ import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
-import { updateAvatarService } from '../api'
+import { uploadAvatarService } from '../api'
 
-export function useUpdateAvatar() {
+export function useUploadAvatar() {
 	const router = useRouter()
 
-	const { mutate: updateAvatar, isPending: isUpdatingAvatar } = useMutation({
+	const { mutate: uploadAvatar, isPending: isUploadingAvatar } = useMutation({
 		mutationKey: ['update-avatar'],
-		mutationFn: (file: File) => updateAvatarService.updateAvatar(file),
+		mutationFn: (file: File) => uploadAvatarService.uploadAvatar(file),
 		onSuccess: () => {
-			toast.success('Аватар успешно обновлен!')
+			toast.success('Аватар успешно загружен!')
 
 			router.refresh()
 		},
@@ -21,5 +21,5 @@ export function useUpdateAvatar() {
 		}
 	})
 
-	return { updateAvatar, isUpdatingAvatar }
+	return { uploadAvatar, isUploadingAvatar }
 }
