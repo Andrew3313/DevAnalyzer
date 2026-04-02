@@ -7,8 +7,8 @@ import {
 	passwordWithConfirmationSchema,
 	type TPasswordWithConfirmationSchema
 } from '@/shared/model'
-import { PasswordFieldsGroup } from '@/shared/ui'
-import { Button, Field, FieldGroup } from '@/shared/ui/kit'
+import { PasswordFieldsGroup, WrapperCard } from '@/shared/ui'
+import { Button, FieldGroup } from '@/shared/ui/kit'
 
 import { useUpdatePassword } from '../hooks'
 
@@ -34,19 +34,28 @@ export function UpdatePasswordForm() {
 		updatePassword(values)
 
 	return (
-		<form onSubmit={form.handleSubmit(handleSubmit)}>
-			<FieldGroup>
-				<PasswordFieldsGroup
-					control={form.control}
-					disabled={isUpdatingPassword}
-				/>
+		<WrapperCard
+			title="Обновление пароля"
+			description="Введите новый пароль для вашей учётной записи"
+			className="max-w-full"
+		>
+			<form
+				onSubmit={form.handleSubmit(handleSubmit)}
+				className="flex flex-col items-center space-y-4"
+			>
+				<FieldGroup className="grid grid-cols-1 md:grid-cols-2">
+					<PasswordFieldsGroup
+						control={form.control}
+						disabled={isUpdatingPassword}
+					/>
 
-				<Field>
-					<Button type="submit" disabled={isUpdatingPassword}>
-						Обновить пароль
-					</Button>
-				</Field>
-			</FieldGroup>
-		</form>
+					<div className="col-span-1 flex justify-end md:col-span-2">
+						<Button type="submit" disabled={isUpdatingPassword}>
+							Обновить пароль
+						</Button>
+					</div>
+				</FieldGroup>
+			</form>
+		</WrapperCard>
 	)
 }

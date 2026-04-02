@@ -16,15 +16,11 @@ export function useUpdatePassword(options?: IUseUpdatePasswordOptions) {
 				userService.changePassword(values.password),
 			onSuccess: () => {
 				options?.onSuccess?.()
-				toast.success('Пароль успешно обновлен!', {
-					position: 'bottom-center'
-				})
+				toast.success('Пароль успешно обновлен!')
 			},
 			onError(error) {
 				console.error('Error update profile:', error)
-				toast.error('Что-то пошло не так, попробуйте еще раз', {
-					position: 'bottom-center'
-				})
+				toast.error('Что-то пошло не так, попробуйте еще раз')
 			}
 		})
 

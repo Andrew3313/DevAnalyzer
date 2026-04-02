@@ -1,9 +1,11 @@
 import { type Metadata } from 'next'
 
+import { UpdatePasswordForm } from '@/features/update-profile/ui'
+
 export const metadata: Metadata = {
 	title: 'Безопасность'
 }
 
-export default function ProfileSecurity() {
-	return <div className="text-3xl">Profile Security</div>
+export default function ProfileSecurityPage() {
+	return <UpdatePasswordForm />
 }
