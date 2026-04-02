@@ -1,16 +1,16 @@
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
-import { recoverPasswordService } from '../api'
+import { resetPasswordService } from '../api'
 
 export function useForgotPassword() {
 	const { mutate: forgotPassword, isPending: isSendingEmail } = useMutation({
 		mutationKey: ['forgot-password'],
 		mutationFn: (email: string) =>
-			recoverPasswordService.forgotPassword(email),
+			resetPasswordService.forgotPassword(email),
 		onSuccess: () => {
 			toast.success(
-				'На указанную почту отправлено письмо для сброса пароля'
+				'Если указанный email зарегистрирован в системе, на него отправлено письмо с инструкциями'
 			)
 		},
 		onError: (error) => {

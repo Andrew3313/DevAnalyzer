@@ -42,17 +42,5 @@ export const REGISTER_FIELDS: ReadonlyArray<
 		label: 'Email',
 		placeholder: 'your@email.com',
 		type: 'email'
-	},
-	{
-		name: 'password',
-		label: 'Пароль',
-		placeholder: '••••••••',
-		type: 'password'
-	},
-	{
-		name: 'confirmPassword',
-		label: 'Подтвердите пароль',
-		placeholder: '••••••••',
-		type: 'password'
 	}
 ]

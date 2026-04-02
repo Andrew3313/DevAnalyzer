@@ -1,7 +1,7 @@
 import { type Metadata } from 'next'
 import { redirect } from 'next/navigation'
 
-import { ResetPasswordForm } from '@/features/recover-password/ui'
+import { ResetPasswordForm } from '@/features/reset-password/ui'
 import { isTokenValid } from '@/shared/helpers'
 import { Route } from '@/shared/values'
 

@@ -4,7 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Controller, useForm, useWatch } from 'react-hook-form'
 
 import { UserRole } from '@/entities/user/values'
-import { WrapperCard } from '@/shared/ui'
+import { PasswordFieldsGroup, WrapperCard } from '@/shared/ui'
 import {
 	Button,
 	Field,
@@ -132,6 +132,11 @@ export function RegisterForm() {
 							)}
 						/>
 					))}
+
+					<PasswordFieldsGroup
+						control={form.control}
+						disabled={isLoadingRegister}
+					/>
 
 					<Field className="col-span-1 sm:col-span-2">
 						<Button

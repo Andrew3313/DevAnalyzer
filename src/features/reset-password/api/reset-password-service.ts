@@ -1,6 +1,6 @@
 import { apiClient } from '@/shared/api'
 
-class RecoverPasswordService {
+class ResetPasswordService {
 	private baseUrl = '/auth'
 
 	async forgotPassword(email: string) {
@@ -20,4 +20,4 @@ class RecoverPasswordService {
 	}
 }
 
-export const recoverPasswordService = new RecoverPasswordService()
+export const resetPasswordService = new ResetPasswordService()

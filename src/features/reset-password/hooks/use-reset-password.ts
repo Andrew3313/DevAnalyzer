@@ -2,10 +2,10 @@ import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
+import { type TPasswordWithConfirmationSchema } from '@/shared/model'
 import { Route } from '@/shared/values'
 
-import { recoverPasswordService } from '../api'
-import { type TResetPasswordSchema } from '../model'
+import { resetPasswordService } from '../api'
 
 interface IUseResetPasswordOptions {
 	onSuccess?: () => void
@@ -20,8 +20,8 @@ export function useResetPassword(
 	const { mutate: resetPassword, isPending: isLoadingResetPassword } =
 		useMutation({
 			mutationKey: ['reset-password', token],
-			mutationFn: (values: TResetPasswordSchema) =>
-				recoverPasswordService.resetPassword(token, values.newPassword),
+			mutationFn: (values: TPasswordWithConfirmationSchema) =>
+				resetPasswordService.resetPassword(token, values.password),
 			onSuccess() {
 				options?.onSuccess?.()
 				toast.success('Пароль успешно обновлен!')

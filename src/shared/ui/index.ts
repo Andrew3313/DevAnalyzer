@@ -1,3 +1,4 @@
 export * from './container'
 export * from './wrapper-card'
 export * from './state-message'
+export * from './password-fields-group'
