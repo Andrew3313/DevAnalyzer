@@ -3,9 +3,10 @@ import { type Metadata } from 'next'
 import Link from 'next/link'
 
 import { getServerUserData } from '@/entities/user/api'
+import { LogoutButton } from '@/features/auth/ui'
 import { cn } from '@/shared/helpers'
 import { StateMessage } from '@/shared/ui'
-import { buttonVariants } from '@/shared/ui/kit'
+import { buttonVariants, Separator } from '@/shared/ui/kit'
 import { Route } from '@/shared/values'
 import { ProfileSidebar } from '@/widgets/profile-sidebar/ui'
 import { UserInfo } from '@/widgets/user-info/ui'
@@ -37,6 +38,14 @@ export default async function ProfileLayout({
 		)
 	}
 
+	const sidebarTopSlot = <UserInfo user={user} avatarUrl={avatarUrl} />
+	const sidebarBottomSlot = (
+		<div className="flex flex-col gap-3">
+			<Separator />
+			<LogoutButton />
+		</div>
+	)
+
 	return (
 		<>
 			<Link
@@ -50,11 +59,12 @@ export default async function ProfileLayout({
 				<span>На главную</span>
 			</Link>
 
-			<div className="flex flex-col gap-4 md:flex-row md:gap-6">
+			<div className="flex flex-col gap-4 md:flex-row lg:gap-6">
 				<ProfileSidebar
 					user={user}
 					slots={{
-						top: <UserInfo user={user} avatarUrl={avatarUrl} />
+						top: sidebarTopSlot,
+						bottom: sidebarBottomSlot
 					}}
 				/>
 

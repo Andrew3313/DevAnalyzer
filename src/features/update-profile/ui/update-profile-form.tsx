@@ -91,7 +91,7 @@ export function UpdateProfileForm({ user }: IUpdateProfileFormProps) {
 						/>
 					))}
 
-					<div className="col-span-1 flex justify-center md:col-span-2 md:justify-end">
+					<div className="col-span-1 flex justify-end md:col-span-2">
 						<Button type="submit" disabled={isUpdatingProfile}>
 							Сохранить изменения
 						</Button>

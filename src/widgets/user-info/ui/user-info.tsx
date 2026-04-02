@@ -34,7 +34,7 @@ export function UserInfo({ user, avatarUrl }: IUserInfoProps) {
 	const roleInfo = ROLE_BADGE_CONFIG[user.role]
 
 	return (
-		<div className="relative flex flex-col items-center gap-2">
+		<div className="relative flex flex-col items-center gap-3">
 			<Badge
 				className={cn(
 					'absolute top-0 right-0 z-10',
