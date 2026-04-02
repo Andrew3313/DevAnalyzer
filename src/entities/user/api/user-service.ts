@@ -26,11 +26,11 @@ class UserService {
 		})
 	}
 
-	async changePassword(values: TUpdateUserInfoApiRequest) {
+	async changePassword(newPassword: string) {
 		return apiClient.request(`${this.baseUrl}/me/password`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
-			body: JSON.stringify(values)
+			body: JSON.stringify({ password: newPassword })
 		})
 	}
 

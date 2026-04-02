@@ -24,7 +24,7 @@ export function useResetPassword(
 				resetPasswordService.resetPassword(token, values.password),
 			onSuccess() {
 				options?.onSuccess?.()
-				toast.success('Пароль успешно обновлен!')
+				toast.success('Пароль успешно сброшен!')
 
 				router.replace(Route.Home)
 			},

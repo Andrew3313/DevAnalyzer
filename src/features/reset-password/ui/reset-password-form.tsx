@@ -53,7 +53,7 @@ export function ResetPasswordForm({ token }: IResetPasswordFormProps) {
 
 					<Field>
 						<Button type="submit" disabled={isLoadingResetPassword}>
-							Обновить пароль
+							Сбросить пароль
 						</Button>
 					</Field>
 				</FieldGroup>
