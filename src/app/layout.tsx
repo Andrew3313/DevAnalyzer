@@ -1,12 +1,15 @@
 import { type Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Montserrat } from 'next/font/google'
 
 import './styles/index.css'
 import { cn } from '@/shared/helpers'
 
 import { MainProvider } from './providers'
 
-const inter = Inter({ subsets: ['latin', 'cyrillic'], variable: '--font-sans' })
+const montserrat = Montserrat({
+	subsets: ['latin', 'cyrillic'],
+	variable: '--font-sans'
+})
 
 export const metadata: Metadata = {
 	title: 'DevAnalyzer'
@@ -21,7 +24,7 @@ export default function RootLayout({ children }: Readonly<IRootLayoutProps>) {
 		<html
 			lang="ru"
 			suppressHydrationWarning
-			className={cn('font-sans', inter.variable)}
+			className={cn('font-sans', montserrat.variable)}
 		>
 			<body className="flex min-h-screen flex-col antialiased">
 				<MainProvider>{children}</MainProvider>
