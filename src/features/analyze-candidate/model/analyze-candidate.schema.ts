@@ -6,7 +6,7 @@ export const AnalyzeCandidateSchema = z
 	.object({
 		candidateRef: z
 			.string()
-			.min(1, 'Укажите ссылку на профиль кандидата')
+			.min(1, 'Ссылка не может быть пустой')
 			.max(100, 'Ссылка слишком длинная')
 	})
 	.refine((data) => !!extractGitHubUsername(data.candidateRef), {
