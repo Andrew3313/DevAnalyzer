@@ -1,10 +1,11 @@
 'use client'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { Search } from 'lucide-react'
 import { Controller, useForm } from 'react-hook-form'
 
 import { ExpandableInput } from '@/shared/ui'
-// import { Field, FieldError, Input } from '@/shared/ui/kit'
+import { Button } from '@/shared/ui/kit'
 
 import { AnalyzeCandidateSchema, type TAnalyzeCandidateSchema } from '../model'
 
@@ -36,18 +37,19 @@ export function AnalyzeForm() {
 						errorMessage={fieldState.error?.message}
 						type="text"
 						placeholder="Ссылка на GitHub"
-						dropdownContent={
-							<div>
-								Lorem ipsum dolor sit amet consectetur
-								adipisicing elit. Suscipit deserunt alias
-								dolorem facere distinctio voluptatem
-								dignissimos, cupiditate obcaecati tempore
-								doloremque. Lorem ipsum dolor sit amet
-								consectetur adipisicing elit. Suscipit deserunt
-								alias dolorem facere distinctio voluptatem
-								dignissimos, cupiditate obcaecati tempore
-								doloremque.
-							</div>
+						className="pr-17 sm:pr-44"
+						containerClassName="mx-auto"
+						rightInputSlotClassName="bottom-0 right-1 flex items-center justify-center"
+						rightInputSlot={
+							<Button
+								type="submit"
+								className="h-10.5 gap-1.5 px-4.5 sm:px-2.5"
+							>
+								<Search className="size-5" />
+								<span className="hidden sm:inline">
+									Анализировать
+								</span>
+							</Button>
 						}
 					/>
 				)}

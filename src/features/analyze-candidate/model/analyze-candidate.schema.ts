@@ -11,7 +11,7 @@ export const AnalyzeCandidateSchema = z
 	})
 	.refine((data) => !!extractGitHubUsername(data.candidateRef), {
 		message:
-			'Допустимо: https://github.com/username, github.com/username или @username',
+			'Формат: https://github.com/username, github.com/username или @username',
 		path: ['candidateRef']
 	})
 
