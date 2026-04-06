@@ -13,6 +13,7 @@ export interface IExpandableInputProps extends React.ComponentProps<'input'> {
 	errorMessage?: string
 	containerClassName?: string
 	dropdownClassName?: string
+	dropdownContentClassName?: string
 	leftInputSlotClassName?: string
 	rightInputSlotClassName?: string
 }
@@ -27,6 +28,7 @@ export function ExpandableInput({
 	className,
 	containerClassName,
 	dropdownClassName,
+	dropdownContentClassName,
 	leftInputSlotClassName,
 	rightInputSlotClassName,
 	...inputProps
@@ -108,7 +110,12 @@ export function ExpandableInput({
 				)}
 			>
 				{isDropdownOpen && (
-					<div className="scrollbar-hide animate-in fade-in max-h-36 overflow-y-auto px-2.5 duration-300">
+					<div
+						className={cn(
+							'scrollbar-hide animate-in fade-in max-h-36 overflow-y-auto px-2.5 duration-300',
+							dropdownContentClassName
+						)}
+					>
 						{errorMessage && (
 							<FieldError className="mb-2.5 text-start">
 								{errorMessage}

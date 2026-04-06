@@ -9,7 +9,7 @@ export const AnalyzeHero = () => (
 			<span>Реальная интеграция с GitHub API</span>
 		</div>
 
-		<h1 className="mb-2 text-5xl leading-tight font-extrabold">
+		<h1 className="mb-2 text-4xl leading-tight font-extrabold md:text-5xl">
 			<span>GitHub профиль →</span>
 			<br />
 			<span className="bg-linear-to-r from-violet-500 to-indigo-500 bg-clip-text text-transparent dark:from-violet-400 dark:to-indigo-400">

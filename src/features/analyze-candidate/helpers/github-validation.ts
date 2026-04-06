@@ -10,9 +10,6 @@ const GITHUB_USERNAME_REGEX = /^(?!-)(?!.*--)[a-zA-Z0-9-]{1,39}(?<!-)$/
 export const isValidGitHubUsername = (username: string): boolean =>
 	GITHUB_USERNAME_REGEX.test(username)
 
-export const toGitHubProfileUrl = (username: string): string =>
-	`https://github.com/${username}`
-
 export function extractGitHubUsername(input: string): string | null {
 	const trimmed = input.trim()
 	if (!trimmed) return null

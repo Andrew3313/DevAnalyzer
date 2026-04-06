@@ -5,12 +5,13 @@ interface IUseTechStackOptions {
 	initialTechStack?: string[]
 }
 
-export function useTechStack({
-	initialLanguages = [],
-	initialTechStack = []
-}: IUseTechStackOptions) {
-	const [languages, setLanguages] = useState<string[]>(initialLanguages)
-	const [techStack, setTechStack] = useState<string[]>(initialTechStack)
+export function useTechStack(options?: IUseTechStackOptions) {
+	const [languages, setLanguages] = useState<string[]>(
+		options?.initialLanguages ?? []
+	)
+	const [techStack, setTechStack] = useState<string[]>(
+		options?.initialTechStack ?? []
+	)
 
 	const toggleLanguage = useCallback((lang: string) => {
 		setLanguages((prev) =>
@@ -28,36 +29,20 @@ export function useTechStack({
 		)
 	}, [])
 
-	const addLanguage = useCallback((lang: string) => {
-		setLanguages((prev) => (prev.includes(lang) ? prev : [...prev, lang]))
-	}, [])
-
-	const addTech = useCallback((tech: string) => {
-		setTechStack((prev) => (prev.includes(tech) ? prev : [...prev, tech]))
-	}, [])
-
-	const setLanguagesBatch = useCallback((newLanguages: string[]) => {
-		setLanguages(newLanguages)
-	}, [])
-
-	const setTechStackBatch = useCallback((newTechStack: string[]) => {
-		setTechStack(newTechStack)
-	}, [])
-
 	const resetAll = useCallback(() => {
 		setLanguages([])
 		setTechStack([])
 	}, [])
 
 	return {
-		languages,
-		toggleLanguage,
-		addLanguage,
-		techStack,
-		toggleTech,
-		addTech,
-		setLanguagesBatch,
-		setTechStackBatch,
-		resetAll
+		data: {
+			languages,
+			techStack
+		},
+		actions: {
+			toggleLanguage,
+			toggleTech,
+			resetAll
+		}
 	}
 }

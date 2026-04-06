@@ -4,15 +4,15 @@ import { extractGitHubUsername } from '../helpers'
 
 export const AnalyzeCandidateSchema = z
 	.object({
-		candidateRef: z
+		candidateLink: z
 			.string()
 			.min(1, 'Ссылка не может быть пустой')
 			.max(100, 'Ссылка слишком длинная')
 	})
-	.refine((data) => !!extractGitHubUsername(data.candidateRef), {
+	.refine((data) => !!extractGitHubUsername(data.candidateLink), {
 		message:
 			'Формат: https://github.com/username, github.com/username или @username',
-		path: ['candidateRef']
+		path: ['candidateLink']
 	})
 
 export type TAnalyzeCandidateSchema = z.infer<typeof AnalyzeCandidateSchema>
