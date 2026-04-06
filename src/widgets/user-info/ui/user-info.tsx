@@ -2,26 +2,23 @@ import { type IUser } from '@/entities/user/model'
 import { UserRole } from '@/entities/user/values'
 import { UploadAvatar } from '@/features/upload-avatar/ui'
 import { cn } from '@/shared/helpers'
-import { Badge, Separator } from '@/shared/ui/kit'
+import { Badge, BadgeColor, Separator } from '@/shared/ui/kit'
 
 const ROLE_BADGE_CONFIG: Record<
 	UserRole,
-	{ label: string; className?: string }
+	{ label: string; className?: BadgeColor }
 > = {
 	[UserRole.ADMIN]: {
 		label: 'Admin',
-		className:
-			'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
+		className: BadgeColor.Blue
 	},
 	[UserRole.HR]: {
 		label: 'HR',
-		className:
-			'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200'
+		className: BadgeColor.Green
 	},
 	[UserRole.USER]: {
 		label: 'User',
-		className:
-			'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-200'
+		className: BadgeColor.Gray
 	}
 } as const
 

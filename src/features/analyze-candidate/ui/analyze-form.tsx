@@ -10,7 +10,9 @@ import { Button } from '@/shared/ui/kit'
 import { extractGitHubUsername } from '../helpers'
 import { useTechStack } from '../hooks'
 import { AnalyzeCandidateSchema, type TAnalyzeCandidateSchema } from '../model'
+import { AnalysisStatusBadge } from './analysis-status-badge'
 import { TechStackSelector } from './tech-stack-selector'
+import { AnalysisStatus } from '../values'
 
 const INITIAL_FORM_STATE: TAnalyzeCandidateSchema = {
 	candidateLink: ''
@@ -50,8 +52,15 @@ export function AnalyzeForm() {
 						placeholder="Ссылка на GitHub"
 						className="pr-17 sm:pr-44"
 						containerClassName="mx-auto"
+						leftInputSlotClassName="top-auto bottom-[calc(100%+var(--spacing))]"
 						rightInputSlotClassName="bottom-0 right-1 flex items-center justify-center"
 						dropdownContentClassName="max-h-60"
+						leftInputSlot={
+							<AnalysisStatusBadge
+								status={AnalysisStatus.PROCESSING}
+								className="rounded-md"
+							/>
+						}
 						rightInputSlot={
 							<Button
 								type="submit"
