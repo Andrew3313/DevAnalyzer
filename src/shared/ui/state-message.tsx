@@ -8,8 +8,8 @@ interface IStateMessageProps {
 	title: string
 	subtitle?: string
 	description?: string
-	buttonText?: string
-	buttonHref?: Route
+	linkText?: string
+	linkHref?: Route
 	className?: string
 }
 
@@ -17,8 +17,8 @@ export const StateMessage = ({
 	title,
 	subtitle,
 	description,
-	buttonText,
-	buttonHref = Route.Home,
+	linkText,
+	linkHref = Route.Home,
 	className
 }: IStateMessageProps) => (
 	<div
@@ -33,12 +33,12 @@ export const StateMessage = ({
 			{description && (
 				<p className="text-muted-foreground text-xl">{description}</p>
 			)}
-			{buttonText && (
+			{linkText && (
 				<Link
-					href={buttonHref}
+					href={linkHref}
 					className={buttonVariants({ size: 'lg' })}
 				>
-					{buttonText}
+					{linkText}
 				</Link>
 			)}
 		</div>

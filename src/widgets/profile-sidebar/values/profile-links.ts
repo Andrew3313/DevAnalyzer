@@ -1,4 +1,4 @@
-import { Heart, LockKeyhole, User, History } from 'lucide-react'
+import { Heart, LockKeyhole, User } from 'lucide-react'
 import { type LucideProps } from 'lucide-react'
 
 import { UserRole } from '@/entities/user/values'
@@ -21,12 +21,6 @@ export const PROFILE_LINKS: ReadonlyArray<IProfileLink> = [
 		label: 'Профиль',
 		icon: User,
 		roles: [UserRole.USER, UserRole.HR, UserRole.ADMIN]
-	},
-	{
-		href: Route.ReportsHistory,
-		label: 'Отчёты',
-		icon: History,
-		roles: [UserRole.HR, UserRole.ADMIN]
 	},
 	{
 		href: Route.Favorites,

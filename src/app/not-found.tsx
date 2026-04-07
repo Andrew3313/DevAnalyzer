@@ -13,7 +13,7 @@ export default function NotFound() {
 			title="404"
 			subtitle="Страница не найдена"
 			description="Похоже, вы не там, где хотели быть"
-			buttonText="На главную"
+			linkText="На главную"
 			className="mb-4 min-h-screen px-4"
 		/>
 	)
