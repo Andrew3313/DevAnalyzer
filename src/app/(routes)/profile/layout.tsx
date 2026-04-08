@@ -1,10 +1,12 @@
 import { ArrowLeft } from 'lucide-react'
 import { type Metadata } from 'next'
+import Link from 'next/link'
 
 import { getServerUserData } from '@/entities/user/api'
 import { LogoutButton } from '@/features/auth/ui'
-import { LinkButton, StateMessage } from '@/shared/ui'
-import { Separator } from '@/shared/ui/kit'
+import { cn } from '@/shared/helpers'
+import { StateMessage } from '@/shared/ui'
+import { buttonVariants, Separator } from '@/shared/ui/kit'
 import { Route } from '@/shared/values'
 import { ProfileSidebar } from '@/widgets/profile-sidebar/ui'
 import { UserInfo } from '@/widgets/user-info/ui'
@@ -46,10 +48,16 @@ export default async function ProfileLayout({
 
 	return (
 		<>
-			<LinkButton href={Route.Home} className="mb-4">
+			<Link
+				href={Route.Home}
+				className={cn(
+					'mb-4',
+					buttonVariants({ variant: 'ghost', size: 'lg' })
+				)}
+			>
 				<ArrowLeft className="size-5" />
 				<span>На главную</span>
-			</LinkButton>
+			</Link>
 
 			<div className="flex flex-col gap-4 md:flex-row lg:gap-6">
 				<ProfileSidebar

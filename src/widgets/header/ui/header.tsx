@@ -15,14 +15,17 @@ export async function Header() {
 	return (
 		<header className="mb-4">
 			<Container className="border-border flex items-center justify-between border-b py-2">
-				<Link href={Route.Home} className="flex items-center gap-3">
+				<Link
+					href={Route.Home}
+					className="flex items-center gap-3 focus:outline-none"
+				>
 					<Logo />
 					<span className="hidden text-xl font-bold sm:inline">
 						DevAnalyzer
 					</span>
 				</Link>
 
-				<div className="flex items-center gap-4">
+				<div className="flex items-center gap-3">
 					<ToggleTheme />
 
 					{user ? (

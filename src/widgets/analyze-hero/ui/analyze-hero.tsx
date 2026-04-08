@@ -6,7 +6,7 @@ export const AnalyzeHero = () => (
 	<section className="mx-auto max-w-4xl px-6 py-16 text-center">
 		<div className="mb-2 inline-flex items-center gap-2 rounded-full border border-violet-500/20 bg-violet-500/10 px-4 py-1.5 text-xs text-violet-500 sm:text-sm dark:text-violet-400">
 			<Zap className="size-5" />
-			<span>Реальная интеграция с GitHub API</span>
+			<span>Интеграция с GitHub API</span>
 		</div>
 
 		<h1 className="mb-2 text-4xl leading-tight font-extrabold md:text-5xl">

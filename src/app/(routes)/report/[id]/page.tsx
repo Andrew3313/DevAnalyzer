@@ -1,6 +1,8 @@
 import { ArrowLeft } from 'lucide-react'
+import Link from 'next/link'
 
-import { LinkButton } from '@/shared/ui'
+import { cn } from '@/shared/helpers'
+import { buttonVariants } from '@/shared/ui/kit'
 import { Route } from '@/shared/values'
 
 interface IReportPageProps {
@@ -12,10 +14,16 @@ export default async function ReportPage({ params }: IReportPageProps) {
 
 	return (
 		<>
-			<LinkButton href={Route.Home} className="mb-4">
+			<Link
+				href={Route.Home}
+				className={cn(
+					'mb-4',
+					buttonVariants({ variant: 'ghost', size: 'lg' })
+				)}
+			>
 				<ArrowLeft className="size-5" />
 				<span>На главную</span>
-			</LinkButton>
+			</Link>
 
 			<div>Report {id}</div>
 		</>
