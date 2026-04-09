@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 
 import { ResetPasswordForm } from '@/features/reset-password/ui'
 import { isTokenValid } from '@/shared/helpers'
+import { type TSearchParams } from '@/shared/model'
 import { Route } from '@/shared/values'
 
 export const metadata: Metadata = {
@@ -10,18 +11,15 @@ export const metadata: Metadata = {
 }
 
 interface IResetPasswordPageProps {
-	searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+	searchParams: TSearchParams
 }
 
 export default async function ResetPasswordPage({
 	searchParams
 }: IResetPasswordPageProps) {
-	const tokenRaw = (await searchParams).token
+	const token = [(await searchParams).token].flat()[0]
 
-	const token = Array.isArray(tokenRaw) ? tokenRaw[0] : tokenRaw
-	if (!token || !isTokenValid(token)) {
-		redirect(Route.Home)
-	}
+	if (!token || !isTokenValid(token)) redirect(Route.Home)
 
 	return <ResetPasswordForm token={token} />
 }

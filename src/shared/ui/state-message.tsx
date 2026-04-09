@@ -11,6 +11,10 @@ interface IStateMessageProps {
 	linkText?: string
 	linkHref?: Route
 	className?: string
+	titleClassName?: string
+	subtitleClassName?: string
+	descriptionClassName?: string
+	linkClassName?: string
 }
 
 export const StateMessage = ({
@@ -19,7 +23,11 @@ export const StateMessage = ({
 	description,
 	linkText,
 	linkHref = Route.Home,
-	className
+	className,
+	titleClassName,
+	subtitleClassName,
+	descriptionClassName,
+	linkClassName
 }: IStateMessageProps) => (
 	<div
 		className={cn(
@@ -28,15 +36,31 @@ export const StateMessage = ({
 		)}
 	>
 		<div className="space-y-4">
-			<h1 className="text-3xl font-bold">{title}</h1>
-			{subtitle && <h2 className="text-2xl font-semibold">{subtitle}</h2>}
+			<h1 className={cn('text-3xl font-bold', titleClassName)}>
+				{title}
+			</h1>
+			{subtitle && (
+				<h2 className={cn('text-2xl font-semibold', subtitleClassName)}>
+					{subtitle}
+				</h2>
+			)}
 			{description && (
-				<p className="text-muted-foreground text-xl">{description}</p>
+				<p
+					className={cn(
+						'text-muted-foreground text-xl',
+						descriptionClassName
+					)}
+				>
+					{description}
+				</p>
 			)}
 			{linkText && (
 				<Link
 					href={linkHref}
-					className={buttonVariants({ size: 'lg' })}
+					className={cn(
+						buttonVariants({ size: 'lg' }),
+						linkClassName
+					)}
 				>
 					{linkText}
 				</Link>

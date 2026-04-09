@@ -8,9 +8,7 @@ import {
 	Card,
 	CardContent,
 	CardDescription,
-	CardFooter,
-	CardHeader,
-	CardTitle
+	CardFooter
 } from '@/shared/ui/kit'
 
 import { type IRepository } from '../model'
@@ -40,23 +38,25 @@ export const RepositoryCard = ({
 				<Logo className="size-28" />
 			</div>
 
-			<CardHeader className="relative z-10">
+			<div className="relative z-10 px-6">
 				<div className="flex items-start justify-between gap-4">
-					<div className="flex items-center gap-3">
-						<div className="bg-primary/7 text-primary group-hover:text-primary-foreground flex h-10 w-10 items-center justify-center rounded-lg transition-colors duration-300 group-hover:bg-violet-400">
+					<div className="flex min-w-0 flex-1 items-center gap-3">
+						<div className="bg-primary/7 text-primary group-hover:text-primary-foreground flex h-10 w-10 shrink-0 items-center justify-center rounded-lg transition-colors duration-300 group-hover:bg-violet-400">
 							<Code className="size-5" />
 						</div>
-						<CardTitle className="text-foreground text-lg font-semibold">
+
+						<h3 className="text-foreground truncate text-lg font-semibold">
 							{repository.name}
-						</CardTitle>
+						</h3>
 					</div>
-					<ExternalLink className="size-5 text-violet-400 opacity-0 transition-all duration-300 group-hover:opacity-100" />
+
+					<ExternalLink className="size-5 shrink-0 text-violet-400 opacity-0 transition-all duration-300 group-hover:opacity-100" />
 				</div>
-			</CardHeader>
+			</div>
 
 			<CardContent className="relative z-10">
 				{repository.description ? (
-					<CardDescription className="text-muted-foreground line-clamp-2 text-sm leading-relaxed">
+					<CardDescription className="text-muted-foreground truncate text-sm leading-relaxed">
 						{repository.description}
 					</CardDescription>
 				) : (

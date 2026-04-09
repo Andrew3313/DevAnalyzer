@@ -6,3 +6,7 @@ export interface IBaseFormField<Schema> {
 	placeholder: string
 	type: string
 }
+
+export type TSearchParams = Promise<{
+	[key: string]: string | string[] | undefined
+}>
