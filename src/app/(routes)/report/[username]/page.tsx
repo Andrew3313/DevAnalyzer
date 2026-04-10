@@ -9,6 +9,7 @@ import { cn } from '@/shared/helpers'
 import { type TSearchParams } from '@/shared/model'
 import { buttonVariants } from '@/shared/ui/kit'
 import { Route } from '@/shared/values'
+import { GithubStats } from '@/widgets/github-stats/ui'
 import { TopRepositories } from '@/widgets/top-repositories/ui'
 
 interface IReportPageProps {
@@ -41,6 +42,7 @@ export default async function ReportPage({
 				<span>На главную</span>
 			</Link>
 
+			<GithubStats username={username} />
 			<TopRepositories username={username} />
 
 			{showMoreAnalysis && <h3>Расширенный анализ</h3>}
