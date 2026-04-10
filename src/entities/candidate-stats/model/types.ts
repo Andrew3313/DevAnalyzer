@@ -6,7 +6,7 @@ export interface IHeatmapWeek {
 
 export type IHeatmapWeekList = IHeatmapWeek[]
 
-export interface IBasicGithubStats {
+export interface IGithubStats {
 	githubId: number
 	login: string
 	name: string | null

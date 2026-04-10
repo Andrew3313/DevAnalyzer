@@ -1,1 +1,1 @@
-export * from './use-basic-stats'
+export * from './use-github-stats'

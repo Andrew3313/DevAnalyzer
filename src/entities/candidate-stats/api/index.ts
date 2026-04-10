@@ -1,1 +1,1 @@
-export * from './fetch-basic-stats'
+export * from './fetch-github-stats'

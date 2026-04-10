@@ -1,11 +1,11 @@
 import { useQuery } from '@tanstack/react-query'
 
-import { fetchBasicStats } from '../api'
+import { fetchGithubStats } from '../api'
 
-export function useBasicStats(username: string) {
+export function useGithubStats(username: string) {
 	const { data, isLoading, error } = useQuery({
-		queryKey: ['basic-stats', username],
-		queryFn: () => fetchBasicStats(username),
+		queryKey: ['github-stats', username],
+		queryFn: () => fetchGithubStats(username),
 		enabled: !!username,
 		staleTime: 60 * 1000 * 10
 	})
