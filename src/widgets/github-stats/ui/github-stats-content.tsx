@@ -83,7 +83,7 @@ export const GithubStatsContent = ({
 							<div className="bg-secondary/60 dark:bg-card/50 flex cursor-default flex-col items-center gap-2 rounded-xl border border-transparent px-4 py-3 transition-colors duration-300 hover:border-violet-500">
 								<div
 									className={cn(
-										'flex size-10 shrink-0 items-center justify-center rounded-lg',
+										'flex size-10 items-center justify-center rounded-lg',
 										iconClassName
 									)}
 								>

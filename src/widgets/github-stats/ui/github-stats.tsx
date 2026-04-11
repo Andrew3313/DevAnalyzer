@@ -6,6 +6,7 @@ import { Card } from '@/shared/ui/kit'
 import { useGithubStats } from '../hooks'
 import { GithubStatsContent } from './github-stats-content'
 import { GithubStatsHeader } from './github-stats-header'
+import { GithubStatsSkeleton } from './github-stats-skeleton'
 
 interface IGithubStatsProps {
 	username: string
@@ -26,7 +27,7 @@ export function GithubStats({ username, className }: IGithubStatsProps) {
 		>
 			<div className="h-1 bg-linear-to-r from-violet-400 to-indigo-400" />
 
-			{isLoadingStats && <div>Loading</div>}
+			{isLoadingStats && <GithubStatsSkeleton />}
 
 			{hasStats && (
 				<>
