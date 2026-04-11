@@ -42,10 +42,8 @@ export function TopRepositories({
 
 			{repositoriesError && (
 				<StateMessage
-					title="Ошибка загрузки"
-					description="Попробуйте обновить страницу"
+					title="Ошибка загрузки репозиториев"
 					titleClassName="text-xl"
-					descriptionClassName="text-sm"
 				/>
 			)}
 

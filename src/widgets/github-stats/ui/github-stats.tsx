@@ -1,6 +1,7 @@
 'use client'
 
 import { cn } from '@/shared/helpers'
+import { StateMessage } from '@/shared/ui'
 import { Card } from '@/shared/ui/kit'
 
 import { useGithubStats } from '../hooks'
@@ -21,13 +22,23 @@ export function GithubStats({ username, className }: IGithubStatsProps) {
 	return (
 		<Card
 			className={cn(
-				'border-border/50 bg-card/50 shadow-primary/5 mb-4 w-full overflow-hidden shadow-lg',
+				'border-border/50 bg-card/50 shadow-primary/5 mb-4 min-h-128 w-full overflow-hidden shadow-lg',
 				className
 			)}
 		>
 			<div className="h-1 bg-linear-to-r from-violet-400 to-indigo-400" />
 
 			{isLoadingStats && <GithubStatsSkeleton />}
+
+			{statsError && (
+				<StateMessage
+					title="Что-то пошло не так..."
+					description="Попробуйте обновить страницу"
+					titleClassName="text-xl"
+					descriptionClassName="text-sm"
+					className="flex-1"
+				/>
+			)}
 
 			{hasStats && (
 				<>
