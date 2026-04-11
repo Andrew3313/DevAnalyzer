@@ -1,5 +1,7 @@
 import { type PropsWithChildren } from 'react'
 
+import { TooltipProvider } from '@/shared/ui/kit'
+
 import { TanstackQueryProvider } from './tanstack-query-provider'
 import { ThemeProvider } from './theme-provider'
 import { ToastProvider } from './toast-provider'
@@ -14,7 +16,9 @@ export function MainProvider({ children }: PropsWithChildren<unknown>) {
 				disableTransitionOnChange
 			>
 				<ToastProvider />
-				{children}
+				<TooltipProvider delayDuration={100}>
+					{children}
+				</TooltipProvider>
 			</ThemeProvider>
 		</TanstackQueryProvider>
 	)

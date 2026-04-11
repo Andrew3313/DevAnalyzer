@@ -1,4 +1,4 @@
-import { Keys } from '@/shared/helpers'
+import { type Keys } from '@/shared/helpers'
 
 export interface IBaseFormField<Schema> {
 	name: Keys<Schema>

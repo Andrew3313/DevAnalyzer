@@ -4,6 +4,7 @@ import { cn } from '@/shared/helpers'
 import { Card } from '@/shared/ui/kit'
 
 import { useGithubStats } from '../hooks'
+import { GithubStatsContent } from './github-stats-content'
 import { GithubStatsHeader } from './github-stats-header'
 
 interface IGithubStatsProps {
@@ -28,12 +29,24 @@ export function GithubStats({ username, className }: IGithubStatsProps) {
 			{isLoadingStats && <div>Loading</div>}
 
 			{hasStats && (
-				<GithubStatsHeader
-					name={stats.name}
-					login={stats.login}
-					location={stats.location}
-					company={stats.company}
-				/>
+				<>
+					<GithubStatsHeader
+						name={stats.name}
+						login={stats.login}
+						location={stats.location}
+						company={stats.company}
+					/>
+
+					<GithubStatsContent
+						repositories={stats.repositories}
+						forks={stats.forks}
+						stars={stats.stars}
+						followers={stats.followers}
+						commits={stats.commits}
+						ageInDays={stats.ageInDays}
+						heatmap={stats.heatmap}
+					/>
+				</>
 			)}
 		</Card>
 	)

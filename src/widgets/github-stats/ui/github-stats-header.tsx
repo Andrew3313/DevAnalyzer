@@ -3,11 +3,9 @@ import Link from 'next/link'
 
 import { cn } from '@/shared/helpers'
 
-interface IGithubStatsHeaderProps {
-	name: string | null
-	login: string
-	location: string | null
-	company: string | null
+import { type TGithubStatsHeader } from '../model'
+
+interface IGithubStatsHeaderProps extends TGithubStatsHeader {
 	className?: string
 }
 
@@ -31,7 +29,7 @@ export const GithubStatsHeader = ({
 					href={`https://github.com/${login}`}
 					target="_blank"
 					rel="noopener noreferrer"
-					className="focus-visible:border-ring focus-visible:ring-ring/50 truncate rounded-full border border-violet-500/20 bg-violet-500/10 px-2 py-0.5 text-sm text-violet-500 transition-colors hover:text-violet-400 focus:outline-none focus-visible:ring-1 dark:text-violet-400 dark:hover:text-violet-300"
+					className="focus-visible:border-ring focus-visible:ring-ring/50 truncate rounded-full border border-violet-500/20 bg-violet-500/10 px-2 py-0.5 text-sm text-violet-500 transition-all hover:opacity-85 focus:outline-none focus-visible:ring-1 dark:text-violet-400"
 				>
 					@{login}
 				</Link>

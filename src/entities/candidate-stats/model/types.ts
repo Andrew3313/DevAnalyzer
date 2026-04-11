@@ -1,5 +1,5 @@
 export interface IHeatmapWeek {
-	weekStart: string
+	weekStart: string // YYYY-MM-DD
 	days: number[]
 	total: number
 }
