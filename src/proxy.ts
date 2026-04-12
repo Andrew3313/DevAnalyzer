@@ -10,9 +10,3 @@ export async function proxy(request: NextRequest) {
 
 	return withProxy(request, response, PROXIES)
 }
-
-export const config = {
-	matcher: [
-		'/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt).*)'
-	]
-}

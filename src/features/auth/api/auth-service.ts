@@ -7,15 +7,21 @@ class AuthService {
 	private baseUrl = '/auth'
 
 	async login(values: TLoginSchema) {
-		return apiClient.request(`${this.baseUrl}/login`, {
+		return fetch(`/api/auth/login`, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify(values)
+		}).then((res) => {
+			if (!res.ok) throw new Error(`HTTP error ${res.status}`)
+			return res
 		})
 	}
 
 	async logout() {
-		return apiClient.request(`${this.baseUrl}/logout`, { method: 'POST' })
+		return fetch('/api/auth/logout', { method: 'POST' }).then((res) => {
+			if (!res.ok) throw new Error(`HTTP error ${res.status}`)
+			return res
+		})
 	}
 
 	async refresh(cookie?: string) {
