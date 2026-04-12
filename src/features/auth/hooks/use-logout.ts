@@ -2,6 +2,8 @@ import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
+import { Route } from '@/shared/values'
+
 import { authService } from '../api'
 
 export function useLogout() {
@@ -12,12 +14,11 @@ export function useLogout() {
 		mutationFn: () => authService.logout(),
 		onSuccess() {
 			toast.success('Вы успешно вышли из аккаунта!')
-
-			router.refresh()
+			router.push(Route.Login)
 		},
 		onError(error) {
 			console.error('Error logout:', error)
-			toast.error('Что-то пошло не так, попробуйте еще раз')
+			toast.error('Что-то пошло не так, попробуйте еще раз')
 		}
 	})
 
