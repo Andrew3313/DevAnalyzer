@@ -1,7 +1,8 @@
 export enum AnalysisStatus {
 	PROCESSING = 'processing',
 	FILTERING = 'filtering',
-	DEEP_ANALYSIS = 'deepAnalysis',
-	DONE = 'done',
+	ANALYZING = 'analyzing',
+	BUILDING_REPORT = 'building_report',
+	COMPLETED = 'completed',
 	FAILED = 'failed'
 }
