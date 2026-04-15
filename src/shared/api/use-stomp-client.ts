@@ -1,3 +1,5 @@
+'use client'
+
 import { Client, IMessage } from '@stomp/stompjs'
 import { useState, useRef, useEffect, useCallback } from 'react'
 import SockJS from 'sockjs-client'

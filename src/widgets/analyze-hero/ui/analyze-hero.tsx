@@ -1,8 +1,13 @@
 import { Zap } from 'lucide-react'
 
+import { type IUser } from '@/entities/user/model'
 import { AnalyzeForm } from '@/features/analyze-candidate/ui'
 
-export const AnalyzeHero = () => (
+interface IAnalyzeHeroProps {
+	user: IUser | null
+}
+
+export const AnalyzeHero = ({ user }: IAnalyzeHeroProps) => (
 	<section className="mx-auto max-w-4xl px-6 py-16 text-center">
 		<div className="mb-2 inline-flex items-center gap-2 rounded-full border border-violet-500/20 bg-violet-500/10 px-4 py-1.5 text-xs text-violet-500 sm:text-sm dark:text-violet-400">
 			<Zap className="size-5" />
@@ -22,6 +27,6 @@ export const AnalyzeHero = () => (
 			соответствие резюме
 		</p>
 
-		<AnalyzeForm />
+		<AnalyzeForm user={user} />
 	</section>
 )

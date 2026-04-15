@@ -2,10 +2,16 @@
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Search } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import { Controller, useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 
+import { getUserAccessFlags } from '@/entities/user/helpers'
+import { type IUser } from '@/entities/user/model'
+import { makeDynamicPath } from '@/shared/helpers'
 import { ExpandableInput } from '@/shared/ui'
 import { Button } from '@/shared/ui/kit'
+import { Route } from '@/shared/values'
 
 import { extractGitHubUsername } from '../helpers'
 import { useTechStack } from '../hooks'
@@ -18,7 +24,15 @@ const INITIAL_FORM_STATE: TAnalyzeCandidateSchema = {
 	candidateLink: ''
 }
 
-export function AnalyzeForm() {
+interface IAnalyzeFormProps {
+	user: IUser | null
+}
+
+export function AnalyzeForm({ user }: IAnalyzeFormProps) {
+	const { isAuthenticated, isRegularUser, hasExtendedAccess } =
+		getUserAccessFlags(user)
+
+	const router = useRouter()
 	const { data, actions } = useTechStack()
 
 	const form = useForm<TAnalyzeCandidateSchema>({
@@ -29,12 +43,26 @@ export function AnalyzeForm() {
 
 	const handleSubmit = (values: TAnalyzeCandidateSchema) => {
 		const username = extractGitHubUsername(values.candidateLink)
-		if (username)
-			console.log({
-				techStack: data.techStack,
-				languages: data.languages,
-				githubUsername: username
-			})
+		if (!username) {
+			toast.error('Проверьте корректность введенных данных')
+			return
+		}
+
+		if (!isAuthenticated) {
+			router.push(Route.Login)
+			return
+		}
+
+		if (isRegularUser) {
+			router.push(makeDynamicPath(Route.Report, { id: username }))
+			return
+		}
+
+		console.log({
+			techStack: data.techStack,
+			languages: data.languages,
+			githubUsername: username
+		})
 	}
 
 	return (
@@ -56,10 +84,12 @@ export function AnalyzeForm() {
 						rightInputSlotClassName="bottom-0 right-1 flex items-center justify-center"
 						dropdownContentClassName="max-h-60"
 						leftInputSlot={
-							<AnalysisStatusBadge
-								status={AnalysisStatus.PROCESSING}
-								className="rounded-md"
-							/>
+							hasExtendedAccess ? (
+								<AnalysisStatusBadge
+									status={AnalysisStatus.PROCESSING}
+									className="rounded-md"
+								/>
+							) : undefined
 						}
 						rightInputSlot={
 							<Button
@@ -74,13 +104,15 @@ export function AnalyzeForm() {
 							</Button>
 						}
 						dropdownContent={
-							<TechStackSelector
-								languages={data.languages}
-								techStack={data.techStack}
-								onToggleLanguage={actions.toggleLanguage}
-								onToggleTech={actions.toggleTech}
-								onReset={actions.resetAll}
-							/>
+							hasExtendedAccess ? (
+								<TechStackSelector
+									languages={data.languages}
+									techStack={data.techStack}
+									onToggleLanguage={actions.toggleLanguage}
+									onToggleTech={actions.toggleTech}
+									onReset={actions.resetAll}
+								/>
+							) : undefined
 						}
 					/>
 				)}

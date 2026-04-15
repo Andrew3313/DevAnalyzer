@@ -28,7 +28,7 @@ export function useRegister(options?: IUseRegisterOptions) {
 		},
 		onError: (error) => {
 			console.error('Register error:', error)
-			toast.error(`Произошла ошибка. Пожалуйста, попробуйте ещё раз`)
+			toast.error('Произошла ошибка. Пожалуйста, попробуйте ещё раз')
 		}
 	})
 

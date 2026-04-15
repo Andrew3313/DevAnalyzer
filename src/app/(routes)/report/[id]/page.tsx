@@ -3,31 +3,27 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 
 import { getServerUserData } from '@/entities/user/api'
-import { UserRole } from '@/entities/user/values'
+import { getUserAccessFlags } from '@/entities/user/helpers'
 import { isValidGitHubUsername } from '@/features/analyze-candidate/helpers'
 import { cn } from '@/shared/helpers'
-import { type TSearchParams } from '@/shared/model'
 import { buttonVariants } from '@/shared/ui/kit'
 import { Route } from '@/shared/values'
 import { GithubStats } from '@/widgets/github-stats/ui'
 import { TopRepositories } from '@/widgets/top-repositories/ui'
 
 interface IReportPageProps {
-	params: Promise<{ username: string }>
-	searchParams: TSearchParams
+	params: Promise<{ id: string }>
 }
 
-export default async function ReportPage({
-	params,
-	searchParams
-}: IReportPageProps) {
-	const { username } = await params
-	const reportId = [(await searchParams).reportId].flat()[0]
-
-	if (!isValidGitHubUsername(username)) redirect(Route.Home)
-
+export default async function ReportPage({ params }: IReportPageProps) {
+	const { id } = await params
 	const { user } = await getServerUserData()
-	const showMoreAnalysis = !!reportId && !!user && user.role !== UserRole.USER
+
+	const { isAuthenticated, isRegularUser, hasExtendedAccess } =
+		getUserAccessFlags(user)
+
+	if (!isAuthenticated) redirect(Route.Login)
+	if (isRegularUser && !isValidGitHubUsername(id)) redirect(Route.Home)
 
 	return (
 		<>
@@ -42,10 +38,14 @@ export default async function ReportPage({
 				<span>На главную</span>
 			</Link>
 
-			<GithubStats username={username} />
-			<TopRepositories username={username} />
-
-			{showMoreAnalysis && <h3>Расширенный анализ</h3>}
+			{hasExtendedAccess ? (
+				<h3>Детальный отчёт</h3>
+			) : (
+				<>
+					<GithubStats username={id} />
+					<TopRepositories username={id} />
+				</>
+			)}
 		</>
 	)
 }

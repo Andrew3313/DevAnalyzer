@@ -2,7 +2,6 @@ import { EnsureParamObject } from '@/shared/helpers'
 
 export enum Route {
 	Home = '/',
-	Compare = '/compare',
 	Profile = '/profile',
 	Favorites = '/profile/favorites',
 	Security = '/profile/security',
