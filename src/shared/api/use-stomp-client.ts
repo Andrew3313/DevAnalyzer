@@ -1,6 +1,6 @@
 'use client'
 
-import { Client, IMessage } from '@stomp/stompjs'
+import { Client, IFrame, IMessage } from '@stomp/stompjs'
 import { useState, useRef, useEffect, useCallback } from 'react'
 import SockJS from 'sockjs-client'
 
@@ -77,6 +77,22 @@ export function useStompClient({
 			onDisconnect: () => {
 				setConnected(false)
 				onDisconnect?.()
+			},
+			onStompError: (frame: IFrame) => {
+				console.error('[STOMP] STOMP error:', frame)
+				setConnected(false)
+			},
+			onWebSocketError: (event: Event) => {
+				console.error('[STOMP] WebSocket error:', event)
+				setConnected(false)
+			},
+			onWebSocketClose: (event: CloseEvent) => {
+				console.log(
+					'[STOMP] WebSocket closed:',
+					event.code,
+					event.reason
+				)
+				setConnected(false)
 			},
 			debug: debug ? (str) => console.log('[STOMP]', str) : undefined
 		})
