@@ -27,7 +27,7 @@ export const MOCK_TECHNOLOGIES = {
 		'Vue.js',
 		'Angular',
 		'Django',
-		'Spring Boot',
+		'Spring',
 		'Express.js',
 		'FastAPI',
 		'Node.js',

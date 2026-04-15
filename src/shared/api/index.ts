@@ -1,2 +1,2 @@
 export * from './api-instances'
-export * from './use-websocket'
+export * from './use-stomp-client'
