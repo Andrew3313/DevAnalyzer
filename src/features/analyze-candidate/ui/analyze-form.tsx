@@ -14,11 +14,10 @@ import { Button } from '@/shared/ui/kit'
 import { Route } from '@/shared/values'
 
 import { extractGitHubUsername } from '../helpers'
-import { useTechStack } from '../hooks'
+import { useAnalysis, useTechStack } from '../hooks'
 import { AnalyzeCandidateSchema, type TAnalyzeCandidateSchema } from '../model'
 import { AnalysisStatusBadge } from './analysis-status-badge'
 import { TechStackSelector } from './tech-stack-selector'
-import { AnalysisStatus } from '../values'
 
 const INITIAL_FORM_STATE: TAnalyzeCandidateSchema = {
 	candidateLink: ''
@@ -29,11 +28,14 @@ interface IAnalyzeFormProps {
 }
 
 export function AnalyzeForm({ user }: IAnalyzeFormProps) {
+	const router = useRouter()
+
 	const { isAuthenticated, isRegularUser, hasExtendedAccess } =
 		getUserAccessFlags(user)
 
-	const router = useRouter()
 	const { data, actions } = useTechStack()
+	const { runAnalysis, status, isLoadingAnalysis, isAnalysisRunning } =
+		useAnalysis(hasExtendedAccess)
 
 	const form = useForm<TAnalyzeCandidateSchema>({
 		resolver: zodResolver(AnalyzeCandidateSchema),
@@ -58,12 +60,14 @@ export function AnalyzeForm({ user }: IAnalyzeFormProps) {
 			return
 		}
 
-		console.log({
+		runAnalysis({
 			techStack: data.techStack,
 			languages: data.languages,
 			githubUsername: username
 		})
 	}
+
+	const isSubmitDisabled = isLoadingAnalysis || isAnalysisRunning
 
 	return (
 		<form onSubmit={form.handleSubmit(handleSubmit)}>
@@ -73,10 +77,11 @@ export function AnalyzeForm({ user }: IAnalyzeFormProps) {
 				render={({ field, fieldState }) => (
 					<ExpandableInput
 						{...field}
+						type="text"
 						id={field.name}
 						aria-invalid={fieldState.invalid}
 						errorMessage={fieldState.error?.message}
-						type="text"
+						disabled={isSubmitDisabled}
 						placeholder="Ссылка на GitHub"
 						className="pr-17 sm:pr-44"
 						containerClassName="mx-auto"
@@ -84,9 +89,9 @@ export function AnalyzeForm({ user }: IAnalyzeFormProps) {
 						rightInputSlotClassName="bottom-0 right-1 flex items-center justify-center"
 						dropdownContentClassName="max-h-60"
 						leftInputSlot={
-							hasExtendedAccess ? (
+							hasExtendedAccess && status ? (
 								<AnalysisStatusBadge
-									status={AnalysisStatus.PROCESSING}
+									status={status}
 									className="rounded-md"
 								/>
 							) : undefined
@@ -95,7 +100,9 @@ export function AnalyzeForm({ user }: IAnalyzeFormProps) {
 							<Button
 								type="submit"
 								className="h-10.5 gap-1.5 px-4.5 sm:px-2.5"
-								disabled={fieldState.invalid}
+								disabled={
+									fieldState.invalid || isSubmitDisabled
+								}
 							>
 								<Search className="size-5" />
 								<span className="hidden sm:inline">

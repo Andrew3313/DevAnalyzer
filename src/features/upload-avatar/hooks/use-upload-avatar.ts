@@ -9,7 +9,7 @@ export function useUploadAvatar() {
 
 	const { mutate: uploadAvatar, isPending: isUploadingAvatar } = useMutation({
 		mutationKey: ['update-avatar'],
-		mutationFn: (file: File) => uploadAvatarService.uploadAvatar(file),
+		mutationFn: uploadAvatarService.uploadAvatar,
 		onSuccess: () => {
 			toast.success('Аватар успешно загружен!')
 

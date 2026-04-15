@@ -10,7 +10,10 @@ export type TStompUnsubscribe = (() => void) | null
 
 interface IUseStompClientOptions {
 	url: string
+	enabled?: boolean
 	reconnectDelay?: number
+	heartbeatIncoming?: number
+	heartbeatOutgoing?: number
 	onConnect?: () => void
 	onDisconnect?: () => void
 	debug?: boolean
@@ -20,42 +23,21 @@ export function useStompClient({
 	url,
 	onConnect,
 	onDisconnect,
+	enabled = true,
 	reconnectDelay = 5000,
+	heartbeatIncoming = 10000,
+	heartbeatOutgoing = 10000,
 	debug = isDev()
 }: IUseStompClientOptions) {
 	const [connected, setConnected] = useState(false)
 	const clientRef = useRef<Client | null>(null)
-
-	useEffect(() => {
-		const client = new Client({
-			webSocketFactory: () => new SockJS(url),
-			reconnectDelay,
-			onConnect: () => {
-				setConnected(true)
-				onConnect?.()
-			},
-			onDisconnect: () => {
-				setConnected(false)
-				onDisconnect?.()
-			},
-			debug: debug ? (str) => console.log('[STOMP]', str) : undefined
-		})
-
-		client.activate()
-		clientRef.current = client
-
-		return () => {
-			client.deactivate()
-			clientRef.current = null
-		}
-	}, [url, reconnectDelay, onConnect, onDisconnect, debug])
 
 	const subscribe = useCallback(
 		<T = unknown>(
 			destination: string,
 			callback: (message: T) => void
 		): TStompUnsubscribe => {
-			if (!clientRef.current || !connected) {
+			if (!connected || !clientRef.current) {
 				console.error('[STOMP] Client not ready, cannot subscribe')
 				return null
 			}
@@ -80,24 +62,47 @@ export function useStompClient({
 		[connected]
 	)
 
-	const send = useCallback(
-		(destination: string, body: unknown) => {
-			if (!clientRef.current || !connected) {
-				console.error('[STOMP] Client not ready, cannot send')
-				return
-			}
+	useEffect(() => {
+		if (!enabled) return
 
-			clientRef.current.publish({
-				destination,
-				body: JSON.stringify(body)
-			})
-		},
-		[connected]
-	)
+		const client = new Client({
+			webSocketFactory: () => new SockJS(url),
+			reconnectDelay,
+			heartbeatIncoming,
+			heartbeatOutgoing,
+			onConnect: () => {
+				setConnected(true)
+				onConnect?.()
+			},
+			onDisconnect: () => {
+				setConnected(false)
+				onDisconnect?.()
+			},
+			debug: debug ? (str) => console.log('[STOMP]', str) : undefined
+		})
+
+		client.activate()
+		clientRef.current = client
+
+		return () => {
+			if (clientRef.current) {
+				clientRef.current.deactivate()
+				clientRef.current = null
+			}
+		}
+	}, [
+		url,
+		reconnectDelay,
+		onConnect,
+		onDisconnect,
+		debug,
+		enabled,
+		heartbeatIncoming,
+		heartbeatOutgoing
+	])
 
 	return {
 		connected,
-		subscribe,
-		send
+		subscribe
 	}
 }

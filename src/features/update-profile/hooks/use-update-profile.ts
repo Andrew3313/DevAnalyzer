@@ -3,7 +3,6 @@ import { useRouter } from 'next/navigation'
 import { toast } from 'sonner'
 
 import { userService } from '@/entities/user/api'
-import { type TUpdateUserInfoApiRequest } from '@/entities/user/model'
 
 export function useUpdateProfile() {
 	const router = useRouter()
@@ -11,8 +10,7 @@ export function useUpdateProfile() {
 	const { mutate: updateProfile, isPending: isUpdatingProfile } = useMutation(
 		{
 			mutationKey: ['update-profile'],
-			mutationFn: (values: TUpdateUserInfoApiRequest) =>
-				userService.updateInfo(values),
+			mutationFn: userService.updateInfo,
 			onSuccess: () => {
 				toast.success('Профиль успешно обновлен!', {
 					position: 'bottom-center'

@@ -39,7 +39,7 @@ export default async function ReportPage({ params }: IReportPageProps) {
 			</Link>
 
 			{hasExtendedAccess ? (
-				<h3>Детальный отчёт</h3>
+				<h3>Детальный отчёт по {id}</h3>
 			) : (
 				<>
 					<GithubStats username={id} />

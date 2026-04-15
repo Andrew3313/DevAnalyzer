@@ -9,7 +9,7 @@ export function useLogout() {
 
 	const { mutate: logout, isPending: isLoggingOut } = useMutation({
 		mutationKey: ['logout'],
-		mutationFn: () => authService.logout(),
+		mutationFn: authService.logout,
 		onSuccess() {
 			toast.success('Вы успешно вышли из аккаунта!')
 
