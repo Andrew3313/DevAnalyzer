@@ -9,12 +9,15 @@ import { GithubStatsContent } from './github-stats-content'
 import { GithubStatsHeader } from './github-stats-header'
 import { GithubStatsSkeleton } from './github-stats-skeleton'
 
-interface IGithubStatsProps {
+interface IViewGithubStatsProps {
 	username: string
 	className?: string
 }
 
-export function GithubStats({ username, className }: IGithubStatsProps) {
+export function ViewGithubStats({
+	username,
+	className
+}: IViewGithubStatsProps) {
 	const { stats, isLoadingStats, statsError } = useGithubStats(username)
 
 	const hasStats = !isLoadingStats && !statsError && stats

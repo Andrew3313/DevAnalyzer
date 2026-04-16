@@ -6,15 +6,15 @@ import { Card, CardContent } from '@/shared/ui/kit'
 
 import { useTopRepositories } from '../hooks'
 
-interface ITopRepositoriesProps {
+interface IViewTopRepositoriesProps {
 	username: string
 	className?: string
 }
 
-export function TopRepositories({
+export function ViewTopRepositories({
 	username,
 	className
-}: ITopRepositoriesProps) {
+}: IViewTopRepositoriesProps) {
 	const { repositories, isLoadingRepositories, repositoriesError } =
 		useTopRepositories(username)
 
