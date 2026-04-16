@@ -6,7 +6,8 @@ import { resetPasswordService } from '../api'
 export function useForgotPassword() {
 	const { mutate: forgotPassword, isPending: isSendingEmail } = useMutation({
 		mutationKey: ['forgot-password'],
-		mutationFn: resetPasswordService.forgotPassword,
+		mutationFn: (email: string) =>
+			resetPasswordService.forgotPassword(email),
 		onSuccess: () => {
 			toast.success(
 				'Если указанный email зарегистрирован в системе, на него отправлено письмо с инструкциями'

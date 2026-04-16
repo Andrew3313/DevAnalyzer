@@ -35,7 +35,7 @@ export function useAnalysis(enabled: boolean) {
 
 	const { mutate: runAnalysis, isPending: isLoadingAnalysis } = useMutation({
 		mutationKey: ['analysis'],
-		mutationFn: startAnalysis,
+		mutationFn: (values: IStartAnalysisRequest) => startAnalysis(values),
 		onSuccess: (data) => {
 			requestIdRef.current = data.requestId
 			setStatus(AnalysisStatus.PROCESSING)
