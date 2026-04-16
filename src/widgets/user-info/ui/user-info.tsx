@@ -25,13 +25,19 @@ const ROLE_BADGE_CONFIG: Record<
 interface IUserInfoProps {
 	user: IUser
 	avatarUrl: string | null
+	className?: string
 }
 
-export function UserInfo({ user, avatarUrl }: IUserInfoProps) {
+export function UserInfo({ user, avatarUrl, className }: IUserInfoProps) {
 	const roleInfo = ROLE_BADGE_CONFIG[user.role]
 
 	return (
-		<div className="relative flex flex-col items-center gap-3">
+		<div
+			className={cn(
+				'relative flex flex-col items-center gap-3',
+				className
+			)}
+		>
 			<Badge
 				className={cn(
 					'absolute top-0 right-0 z-10',

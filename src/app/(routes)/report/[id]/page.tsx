@@ -10,6 +10,7 @@ import { ViewTopRepositories } from '@/features/view-top-repositories/ui'
 import { cn } from '@/shared/helpers'
 import { buttonVariants } from '@/shared/ui/kit'
 import { Route } from '@/shared/values'
+import { CodeQualityReport } from '@/widgets/code-quality-report/ui'
 
 interface IReportPageProps {
 	params: Promise<{ id: string }>
@@ -41,7 +42,7 @@ export default async function ReportPage({ params }: IReportPageProps) {
 			</Link>
 
 			{hasExtendedAccess ? (
-				<h3>Детальный отчёт по {id}</h3>
+				<CodeQualityReport reportId={id} />
 			) : (
 				<>
 					<ViewGithubStats username={id} />
