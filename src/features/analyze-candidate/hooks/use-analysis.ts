@@ -3,7 +3,7 @@ import { useRouter } from 'next/navigation'
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { toast } from 'sonner'
 
-import { type TStompUnsubscribe, useStompClient } from '@/shared/api'
+import { useStompClient, type TStompUnsubscribe } from '@/shared/api'
 import { makeDynamicPath } from '@/shared/helpers'
 import { Route } from '@/shared/values'
 
@@ -19,15 +19,19 @@ const ANALYSIS_WS_URL =
 export function useAnalysis(enabled: boolean) {
 	const router = useRouter()
 
-	const [status, setStatus] = useState<AnalysisStatus | null>(null)
-
-	const requestIdRef = useRef<string | null>(null)
-	const unsubscribeRef = useRef<TStompUnsubscribe>(null)
-
 	const { connected, subscribe } = useStompClient({
 		url: ANALYSIS_WS_URL,
 		enabled
 	})
+
+	const [status, setStatus] = useState<AnalysisStatus | null>(null)
+	const isAnalysisRunning =
+		!!status &&
+		status !== AnalysisStatus.COMPLETED &&
+		status !== AnalysisStatus.FAILED
+
+	const requestIdRef = useRef<string | null>(null)
+	const unsubscribeRef = useRef<TStompUnsubscribe>(null)
 
 	const { mutate: runAnalysis, isPending: isLoadingAnalysis } = useMutation({
 		mutationKey: ['analysis'],
@@ -48,17 +52,14 @@ export function useAnalysis(enabled: boolean) {
 
 	const startAnalysisWithGuard = (payload: IStartAnalysisRequest) => {
 		if (!connected) {
-			toast.error('Нет соединения с сервером')
+			toast.error(
+				'Нет соединения с сервером. Попробуйте обновить страницу'
+			)
 			return
 		}
 
 		runAnalysis(payload)
 	}
-
-	const isAnalysisRunning =
-		!!status &&
-		status !== AnalysisStatus.COMPLETED &&
-		status !== AnalysisStatus.FAILED
 
 	const handleMessage = useCallback(
 		(message: IAnalysisWSMessage) => {
@@ -94,12 +95,6 @@ export function useAnalysis(enabled: boolean) {
 		[router]
 	)
 
-	const cleanup = useCallback(() => {
-		unsubscribeRef.current?.()
-		unsubscribeRef.current = null
-		requestIdRef.current = null
-	}, [])
-
 	useEffect(() => {
 		if (!connected) return
 
@@ -108,8 +103,12 @@ export function useAnalysis(enabled: boolean) {
 			handleMessage
 		)
 
-		return cleanup
-	}, [connected, subscribe, handleMessage, cleanup])
+		return () => {
+			unsubscribeRef.current?.()
+			unsubscribeRef.current = null
+			requestIdRef.current = null
+		}
+	}, [connected, subscribe, handleMessage])
 
 	return {
 		runAnalysis: startAnalysisWithGuard,
