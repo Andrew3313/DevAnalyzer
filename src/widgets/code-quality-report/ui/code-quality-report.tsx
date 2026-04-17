@@ -23,7 +23,25 @@ export function CodeQualityReport({
 
 	return (
 		<div className={cn('flex min-h-[65vh] flex-col', className)}>
-			{reportError && (
+			{!reportError ? (
+				<div className="space-y-8">
+					<GithubStatsControlled
+						stats={report?.gitHubStats}
+						isLoading={isLoadingReport}
+						withSkeletonHeatmap={false}
+					/>
+
+					<QualityAnalysis
+						report={report}
+						isLoading={isLoadingReport}
+					/>
+
+					<TopRepositoriesControlled
+						repositories={topRepositories}
+						isLoading={isLoadingReport}
+					/>
+				</div>
+			) : (
 				<StateMessage
 					title="Что-то пошло не так..."
 					description="Попробуйте обновить страницу"
@@ -31,21 +49,6 @@ export function CodeQualityReport({
 					className="flex-1"
 				/>
 			)}
-
-			<div className="space-y-4">
-				<GithubStatsControlled
-					stats={report?.gitHubStats}
-					isLoading={isLoadingReport}
-					withSkeletonHeatmap={false}
-				/>
-
-				<TopRepositoriesControlled
-					repositories={topRepositories}
-					isLoading={isLoadingReport}
-				/>
-
-				<QualityAnalysis report={report} />
-			</div>
 		</div>
 	)
 }

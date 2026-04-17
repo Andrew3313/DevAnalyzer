@@ -3,7 +3,7 @@ import { Badge, BadgeColor } from '@/shared/ui/kit'
 
 import { AnalysisStatus } from '../values'
 
-const STATUS_LABEL: Record<AnalysisStatus, string> = {
+const STATUS_LABEL: Readonly<Record<AnalysisStatus, string>> = {
 	[AnalysisStatus.PROCESSING]: 'В процессе...',
 	[AnalysisStatus.FILTERING]: 'Фильтрация...',
 	[AnalysisStatus.ANALYZING]: 'Анализ...',
@@ -12,7 +12,7 @@ const STATUS_LABEL: Record<AnalysisStatus, string> = {
 	[AnalysisStatus.FAILED]: 'Ошибка анализа'
 }
 
-const STATUS_STYLES: Record<AnalysisStatus, BadgeColor> = {
+const STATUS_STYLES: Readonly<Record<AnalysisStatus, BadgeColor>> = {
 	[AnalysisStatus.PROCESSING]: BadgeColor.Blue,
 	[AnalysisStatus.FILTERING]: BadgeColor.Gray,
 	[AnalysisStatus.ANALYZING]: BadgeColor.Yellow,

@@ -4,9 +4,8 @@ import { UploadAvatar } from '@/features/upload-avatar/ui'
 import { cn } from '@/shared/helpers'
 import { Badge, BadgeColor, Separator } from '@/shared/ui/kit'
 
-const ROLE_BADGE_CONFIG: Record<
-	UserRole,
-	{ label: string; className?: BadgeColor }
+const ROLE_BADGE_CONFIG: Readonly<
+	Record<UserRole, { label: string; className?: BadgeColor }>
 > = {
 	[UserRole.ADMIN]: {
 		label: 'Admin',
@@ -20,7 +19,7 @@ const ROLE_BADGE_CONFIG: Record<
 		label: 'User',
 		className: BadgeColor.Gray
 	}
-} as const
+}
 
 interface IUserInfoProps {
 	user: IUser

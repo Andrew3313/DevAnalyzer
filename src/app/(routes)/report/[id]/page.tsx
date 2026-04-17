@@ -44,7 +44,7 @@ export default async function ReportPage({ params }: IReportPageProps) {
 			{hasExtendedAccess ? (
 				<CodeQualityReport reportId={id} />
 			) : (
-				<div className="space-y-4">
+				<div className="space-y-8">
 					<ViewGithubStats username={id} />
 					<ViewTopRepositories username={id} />
 				</div>
