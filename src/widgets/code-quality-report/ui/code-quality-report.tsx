@@ -1,12 +1,12 @@
 'use client'
 
-import { ViewGithubStats } from '@/features/view-github-stats/ui'
-import { ViewTopRepositories } from '@/features/view-top-repositories/ui'
+import { GithubStatsControlled } from '@/features/view-github-stats/ui'
+import { TopRepositoriesControlled } from '@/features/view-top-repositories/ui'
 import { cn } from '@/shared/helpers'
 import { StateMessage } from '@/shared/ui'
-import { Spinner } from '@/shared/ui/kit'
 
 import { useQualityReport } from '../hooks'
+import { QualityAnalysis } from './quality-analysis'
 
 interface ICodeQualityReportProps {
 	reportId: string
@@ -19,16 +19,10 @@ export function CodeQualityReport({
 }: ICodeQualityReportProps) {
 	const { report, isLoadingReport, reportError } = useQualityReport(reportId)
 
-	const hasReport = !isLoadingReport && !reportError && report
+	const topRepositories = report?.gitHubRepo?.slice(0, 4)
 
 	return (
 		<div className={cn('flex min-h-[65vh] flex-col', className)}>
-			{isLoadingReport && (
-				<div className="flex flex-1 items-center justify-center">
-					<Spinner className="size-8 text-violet-400 dark:text-violet-500" />
-				</div>
-			)}
-
 			{reportError && (
 				<StateMessage
 					title="Что-то пошло не так..."
@@ -38,12 +32,20 @@ export function CodeQualityReport({
 				/>
 			)}
 
-			{hasReport && (
-				<>
-					<ViewGithubStats username={report.githubUsername} />
-					<ViewTopRepositories username={report.githubUsername} />
-				</>
-			)}
+			<div className="space-y-4">
+				<GithubStatsControlled
+					stats={report?.gitHubStats}
+					isLoading={isLoadingReport}
+					withSkeletonHeatmap={false}
+				/>
+
+				<TopRepositoriesControlled
+					repositories={topRepositories}
+					isLoading={isLoadingReport}
+				/>
+
+				<QualityAnalysis report={report} />
+			</div>
 		</div>
 	)
 }

@@ -103,6 +103,6 @@ export const GithubStatsContent = ({
 			)}
 		</div>
 
-		<ActivityHeatmap heatmap={heatmap} />
+		{heatmap && <ActivityHeatmap heatmap={heatmap} />}
 	</div>
 )

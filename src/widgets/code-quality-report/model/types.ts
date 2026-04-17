@@ -13,7 +13,6 @@ export interface ICodeQualityReport {
 	successfulScans: number
 	failedScans: number
 	overallScore: number // 0-100
-	message: string
 	summary: IQualityReportSummary
 	techStackAnalysis: ITechStackAnalysis
 	repositories: IRepositoryQualityMetrics[]

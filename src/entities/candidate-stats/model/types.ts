@@ -18,5 +18,5 @@ export interface IGithubStats {
 	followers: number
 	commits: number
 	ageInDays: number
-	heatmap: IHeatmapWeekList
+	heatmap?: IHeatmapWeekList
 }
