@@ -28,7 +28,6 @@ export function CodeQualityReport({
 					<GithubStatsControlled
 						stats={report?.gitHubStats}
 						isLoading={isLoadingReport}
-						withSkeletonHeatmap={false}
 					/>
 
 					<QualityAnalysis

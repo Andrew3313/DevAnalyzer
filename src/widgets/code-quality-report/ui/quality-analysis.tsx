@@ -1,7 +1,9 @@
 import { cn } from '@/shared/helpers'
 
 import { type ICodeQualityReport } from '../model'
+import { ScanStatsCard } from './scan-stats-card'
 import { ScoreCard } from './score-card'
+import { ReportSkeleton } from './skeletons'
 
 interface IQualityAnalysisProps {
 	report?: ICodeQualityReport
@@ -22,9 +24,18 @@ export function QualityAnalysis({
 				🛠️ Детальный анализ
 			</h2>
 
+			{isLoading && <ReportSkeleton />}
+
 			{hasAnalysis && (
-				<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+				<div className="grid gap-4 md:grid-cols-2">
 					<ScoreCard score={report.overallScore} />
+					<ScanStatsCard
+						totalRepositories={report.totalRepositories}
+						filteredRepositories={report.filteredRepositories}
+						verifiedRepositories={report.verifiedRepositories}
+						successfulScans={report.successfulScans}
+						failedScans={report.failedScans}
+					/>
 				</div>
 			)}
 		</section>
