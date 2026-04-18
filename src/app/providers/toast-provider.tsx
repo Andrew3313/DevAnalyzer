@@ -1,5 +1,3 @@
-'use client'
-
 import { Toaster } from '@/shared/ui/kit'
 
 export const ToastProvider = () => (

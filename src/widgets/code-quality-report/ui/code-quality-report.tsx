@@ -30,13 +30,13 @@ export function CodeQualityReport({
 						isLoading={isLoadingReport}
 					/>
 
-					<QualityAnalysis
-						report={report}
+					<TopRepositoriesControlled
+						repositories={topRepositories}
 						isLoading={isLoadingReport}
 					/>
 
-					<TopRepositoriesControlled
-						repositories={topRepositories}
+					<QualityAnalysis
+						report={report}
 						isLoading={isLoadingReport}
 					/>
 				</div>
