@@ -16,6 +16,8 @@ const ANALYSIS_WS_URL =
 	process.env.NEXT_PUBLIC_ANALYSIS_WS_URL ||
 	'http://localhost:8080/dev-analyzer'
 
+const ANALYSIS_STATUS_TOPIC = '/user/queue/analysis-status'
+
 export function useAnalysis(enabled: boolean) {
 	const router = useRouter()
 
@@ -99,7 +101,7 @@ export function useAnalysis(enabled: boolean) {
 		if (!connected) return
 
 		unsubscribeRef.current = subscribe<IAnalysisWSMessage>(
-			'/user/queue/analysis-status',
+			ANALYSIS_STATUS_TOPIC,
 			handleMessage
 		)
 
