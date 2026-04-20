@@ -52,7 +52,7 @@ export const TechStackSelector = ({
 			<Separator orientation="vertical" />
 
 			<CategoryColumn
-				title="Технологии"
+				title="Технологии (Обязательно)"
 				options={MOCK_TECHNOLOGIES.techStack}
 				selected={techStack}
 				onToggle={onToggleTech}

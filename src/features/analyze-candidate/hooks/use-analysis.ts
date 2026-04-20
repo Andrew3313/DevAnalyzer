@@ -46,9 +46,7 @@ export function useAnalysis(enabled: boolean) {
 			setStatus(AnalysisStatus.FAILED)
 			requestIdRef.current = null
 
-			toast.error(
-				'Не удалось запустить анализ. Возможно, вы не указали стек технологий'
-			)
+			toast.error('Не удалось запустить анализ')
 		}
 	})
 

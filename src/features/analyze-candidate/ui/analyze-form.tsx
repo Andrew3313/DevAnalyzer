@@ -60,6 +60,13 @@ export function AnalyzeForm({ user }: IAnalyzeFormProps) {
 			return
 		}
 
+		if (isRequiredTechStackMissing) {
+			toast.error(
+				'Выберите хотя бы одну технологию для детального анализа'
+			)
+			return
+		}
+
 		runAnalysis({
 			techStack: data.techStack,
 			languages: data.languages,
@@ -67,7 +74,13 @@ export function AnalyzeForm({ user }: IAnalyzeFormProps) {
 		})
 	}
 
+	const isRequiredTechStackMissing =
+		hasExtendedAccess && !data.techStack.length
+
 	const isSubmitDisabled = isLoadingAnalysis || isAnalysisRunning
+	const isAnalyzeButtonDisabled =
+		isSubmitDisabled || isRequiredTechStackMissing
+
 	const inputInstanceKey = isSubmitDisabled ? 'analysis-running' : 'idle'
 
 	return (
@@ -103,7 +116,8 @@ export function AnalyzeForm({ user }: IAnalyzeFormProps) {
 								type="submit"
 								className="h-10.5 gap-1.5 px-4.5 sm:px-2.5"
 								disabled={
-									fieldState.invalid || isSubmitDisabled
+									fieldState.invalid ||
+									isAnalyzeButtonDisabled
 								}
 							>
 								<Search className="size-5" />
