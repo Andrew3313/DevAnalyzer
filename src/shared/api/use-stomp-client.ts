@@ -6,6 +6,8 @@ import SockJS from 'sockjs-client'
 
 import { isDev } from '@/shared/helpers'
 
+const DEFAULT_DEBUG = isDev()
+
 export type TStompUnsubscribe = (() => void) | null
 
 interface IUseStompClientOptions {
@@ -27,7 +29,7 @@ export function useStompClient({
 	reconnectDelay = 5000,
 	heartbeatIncoming = 10000,
 	heartbeatOutgoing = 10000,
-	debug = isDev()
+	debug = DEFAULT_DEBUG
 }: IUseStompClientOptions) {
 	const [connected, setConnected] = useState(false)
 	const clientRef = useRef<Client | null>(null)
@@ -94,7 +96,7 @@ export function useStompClient({
 				)
 				setConnected(false)
 			},
-			debug: debug ? (str) => console.log('[STOMP]', str) : undefined
+			debug: debug ? (str) => console.log('[STOMP]', str) : () => {}
 		})
 
 		client.activate()
