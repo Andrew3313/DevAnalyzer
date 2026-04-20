@@ -68,6 +68,7 @@ export function AnalyzeForm({ user }: IAnalyzeFormProps) {
 	}
 
 	const isSubmitDisabled = isLoadingAnalysis || isAnalysisRunning
+	const inputInstanceKey = isSubmitDisabled ? 'analysis-running' : 'idle'
 
 	return (
 		<form onSubmit={form.handleSubmit(handleSubmit)}>
@@ -76,6 +77,7 @@ export function AnalyzeForm({ user }: IAnalyzeFormProps) {
 				control={form.control}
 				render={({ field, fieldState }) => (
 					<ExpandableInput
+						key={inputInstanceKey}
 						{...field}
 						type="text"
 						id={field.name}
