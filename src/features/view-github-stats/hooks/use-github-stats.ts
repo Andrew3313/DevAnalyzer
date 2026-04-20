@@ -3,7 +3,11 @@ import { useQuery } from '@tanstack/react-query'
 import { fetchGithubStats } from '../api'
 
 export function useGithubStats(username: string) {
-	const { data, isLoading, error } = useQuery({
+	const {
+		data: stats,
+		isLoading: isLoadingStats,
+		error: statsError
+	} = useQuery({
 		queryKey: ['github-stats', username],
 		queryFn: () => fetchGithubStats(username),
 		enabled: !!username,
@@ -11,8 +15,8 @@ export function useGithubStats(username: string) {
 	})
 
 	return {
-		stats: data,
-		isLoadingStats: isLoading,
-		statsError: error
+		stats,
+		isLoadingStats,
+		statsError
 	}
 }
