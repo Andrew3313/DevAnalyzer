@@ -28,7 +28,10 @@ export function ProfileSidebar({
 
 	return (
 		<Card
-			className={cn('w-full shrink-0 py-0 shadow-sm md:w-64', className)}
+			className={cn(
+				'h-fit w-full shrink-0 self-start py-0 shadow-sm md:w-64',
+				className
+			)}
 		>
 			<CardContent className="p-4">
 				{slots?.top && <div className="mb-4">{slots.top}</div>}

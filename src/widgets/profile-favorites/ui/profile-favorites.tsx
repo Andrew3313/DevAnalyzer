@@ -10,7 +10,7 @@ import { useFavoriteReports } from '../hooks'
 import { FavoriteReportCard } from './favorite-report-card'
 import { FavoriteReportCardSkeleton } from './favorite-report-card-skeleton'
 
-const FAVORITE_REPORTS_LIMIT = 20
+const FAVORITE_REPORTS_LIMIT = 4
 const SKELETON_COUNT = 2
 
 export function ProfileFavorites() {
