@@ -21,7 +21,7 @@ export function useFavoriteReports(limit: number) {
 		getNextPageParam: (lastPage, allPages) =>
 			lastPage.length === limit ? allPages.length * limit : undefined,
 		select: (result) => result.pages.flat(),
-		staleTime: 60 * 1000 * 10
+		staleTime: 0
 	})
 
 	return {
